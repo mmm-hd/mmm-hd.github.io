@@ -1,133 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Mathematical Modelling in Medicine</title>
-
-<style>
-body {
-    background: #ffffff;
-    color: #333333;
-    font-family: system-ui, sans-serif;
-    margin: 0;
-    line-height: 1.6;
-}
-
-h1 {
-    font-weight: 600;
-    text-align: center;
-}
-
-h2 {
-    margin-top: 40px;
-    color: #222222;
-}
-
-a {
-    color: #5a8ab8;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-.notice {
-    margin-top: 30px;
-    padding: 15px;
-    border-left: 4px solid #5a8ab8;
-    background: #f4f7f8;
-}
-
-.container {
-    max-width: 750px;
-    margin: 40px auto;
-    padding: 0 20px;
-}
-
-/* --- Header Styles --- */
-.header {
-    background: #ffffff;
-    padding: 10px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #eeeeee;
-}
-
-.header .logo {
-    display: flex;
-    align-items: center;
-    font-weight: 500;
-    color: #5a8ab8;
-    font-size: 1.1rem;
-}
-
-/* Updated logo CSS to handle the rectangular SVG properly */
-.header .logo img {
-    height: 80px; /* Restricts height but lets width scale naturally */
-    width: auto;  
-    margin-right: 15px;
-}
-
-.header .links {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-}
-
-.header .links a {
-    color: #555555;
-    font-weight: 400;
-    font-size: 0.95rem;
-}
-
-.header .links a:hover {
-    color: #5a8ab8;
-}
-
-.header .links a.active {
-    color: #5a8ab8; 
-}
-
-.header .search-icon {
-    font-size: 1.1rem;
-    color: #555555;
-    cursor: pointer;
-    margin-left: 10px;
-}
-
-/* --- Banner Styles --- */
-.banner {
-    background: url('mountain_banner.jpg') no-repeat center center / cover; 
-    background-color: #7aa2f7; /* Fallback color just in case the image doesn't load */
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #ffffff;
-}
-
-.banner h1 {
-    font-size: 2.5rem;
-    margin: 0;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.3); /* Helps text stand out against the background */
-}
-
-.email-link {
-    background: #f4f7f8; /* Matches the notice box background */
-    padding: 15px 20px;
-    border-radius: 6px; /* Gives it slightly rounded corners */
-    display: inline-block; /* Keeps the box tightly wrapped around the text */
-    margin-top: 10px;
-    border: 1px solid #eeeeee;
-}
-
-.email-link a {
-    font-weight: 500;
-}
-</style>
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathematical Modelling in Medicine</title>
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -136,14 +14,17 @@ a:hover {
     <div class="logo">
         <img src="logo_uni_heidelberg.svg" alt="University of Heidelberg Logo">
     </div>
-    <div class="links">
-        <a href="index.html">Home</a>
+    
+    <div class="menu-icon" id="menu-icon">&#9776;</div>
+    
+    <div class="links" id="nav-links">
+        <a href="index.html" class="active">Home</a>
         <a href="projects.html">Projects</a>
         <a href="teaching.html">Teaching</a>
-        <a href="students.html">Students</a>
+        <a href="team.html">Team</a>
         <a href="publications.html">Publications</a>
         <a href="links.html">Links</a>
-        <a href="contact.html">Contact</a> 
+        <a href="contact.html">Contact</a>
     </div>
 </div>
 
@@ -164,7 +45,7 @@ a:hover {
     and group members will be available soon.
     </div>
 
-    <h2>Group Lead</h2>
+    <h2>Group Leader</h2>
 
     <p>
     <strong>Prof. Stefania Petra</strong><br>
@@ -187,13 +68,15 @@ a:hover {
     </a>
     </p>
 
-<h2>Contact</h2>
+    <h2>Contact</h2>
 
-<p class="email-link">
-    &#9993; Email: petra [at] math [dot] uni-heidelberg [dot] de</a>
-</p>
+    <p class="email-link">
+        &#9993; Email: <a href="#" id="secure-email">petra [at] math [dot] uni-heidelberg [dot] de</a>
+    </p>
 
 </div>
+
+<<script src="menu.js"></script>
 
 </body>
 </html>
