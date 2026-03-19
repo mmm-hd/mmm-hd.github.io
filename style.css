@@ -343,3 +343,31 @@ a:hover {
         max-width: 300px;
     }
 }
+
+/* --- Footer Styles --- */
+.footer {
+    background-color: #f4f7f8;
+    border-top: 1px solid #eeeeee;
+    padding: 20px 0; /* Adjusted padding */
+    margin-top: 60px;
+    color: #666666;
+    font-size: 0.85rem;
+}
+
+/* Flexbox puts them on a single row, pushed to opposite sides */
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    box-shadow: none;
+}
+
+/* On mobile screens, stack the left and right text vertically */
+@media (max-width: 48em) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px; /* Adds a little space between the two lines */
+    }
+}
