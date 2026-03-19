@@ -61,6 +61,7 @@ a:hover {
 .header .logo img {
     height: 80px; 
     width: auto;  
+    max-width: 100%;
     margin-right: 15px;
 }
 
@@ -177,12 +178,12 @@ a:hover {
     .header {
         padding: 10px 20px; 
     }
-    
+
     .menu-icon {
         display: block; 
     }
 
-  .header .links {
+    .header .links {
         display: none; 
         flex-direction: column;
         position: absolute;
