@@ -228,3 +228,63 @@ a:hover {
         font-size: 2rem; 
     }
 }
+
+/* --- Team Grid Styles --- */
+.team-grid {
+    display: grid;
+    /* This is the magic line! It automatically creates columns 
+       that are at least 220px wide, and expands them to fill space. 
+       On phones, it naturally drops to 1 column! */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.team-card {
+    background: #f9fbfc;
+    border: 1px solid #eeeeee;
+    border-radius: 8px;
+    padding: 25px 20px;
+    text-align: center; /* Centers the image and text */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Adds a subtle floating effect when you hover over a card */
+.team-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+}
+
+.team-card img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%; /* Crops the square image into a perfect circle */
+    object-fit: cover;  /* Ensures rectangular photos are cropped, not squished */
+    margin: 0 auto 15px auto;
+    display: block;
+    border: 3px solid #ffffff; /* Adds a nice white border inside the shadow */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.team-card h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.2rem;
+    color: #222222;
+}
+
+.team-card .role {
+    margin: 0 0 15px 0;
+    font-size: 0.85rem;
+    color: #5a8ab8;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.team-card p {
+    font-size: 0.95rem;
+    color: #555555;
+    margin-bottom: 0;
+}
