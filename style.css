@@ -281,6 +281,7 @@ a:hover {
     height: 130px;
     border-radius: 50%; /* Crops the square image into a perfect circle */
     object-fit: cover;  /* Ensures rectangular photos are cropped, not squished */
+    object-position: center top; /* Focuses on the top-center of the original image */
     margin: 0 auto 15px auto;
     display: block;
     border: 3px solid #ffffff; /* Adds a nice white border inside the shadow */
