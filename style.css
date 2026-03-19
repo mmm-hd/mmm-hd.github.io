@@ -113,6 +113,20 @@ a:hover {
     text-shadow: 1px 1px 4px rgba(0,0,0,0.3); 
 }
 
+.banner-slim {
+    background-color: #5a8ab8; /* Your brand blue */
+    color: #ffffff;
+    padding: 30px 20px; /* Much less padding than the main banner */
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.banner-slim h1 {
+    font-size: 1.8rem; /* Scaled down from 2.5rem */
+    margin: 0;
+    font-weight: 500;
+}
+
 /* --- Contact Section Styles --- */
 .email-link {
     background: #f4f7f8; 
@@ -242,19 +256,24 @@ a:hover {
 }
 
 .team-card {
+    display: block; /* Ensures the <a> tag behaves like a block container */
+    text-decoration: none; /* Removes the underline from the link */
+    color: inherit; /* Prevents the text from turning default blue */
+    
     background: #f9fbfc;
     border: 1px solid #eeeeee;
     border-radius: 8px;
     padding: 25px 20px;
-    text-align: center; /* Centers the image and text */
+    text-align: center; 
     box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Adds a subtle floating effect when you hover over a card */
+/* Ensure the hover effect doesn't add an underline */
 .team-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+    text-decoration: none; 
 }
 
 .team-card img {
@@ -287,4 +306,39 @@ a:hover {
     font-size: 0.95rem;
     color: #555555;
     margin-bottom: 0;
+}
+
+/* --- Individual Profile Page Styles --- */
+.profile-container {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.profile-sidebar {
+    flex: 1;
+    max-width: 250px;
+    text-align: center;
+}
+
+.profile-photo {
+    width: 100%;
+    border-radius: 8px; /* Slightly rounded corners for the big bio photo */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.profile-content {
+    flex: 2;
+}
+
+/* Stack them on top of each other on mobile phones */
+@media (max-width: 48em) {
+    .profile-container {
+        flex-direction: column;
+        align-items: center; /* Centers the photo */
+    }
+    
+    .profile-sidebar {
+        max-width: 300px;
+    }
 }
