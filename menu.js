@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
     
     // 1. Mobile Menu Toggle
-    var menuIcon = document.getElementById("menu-icon");
-    var navLinks = document.getElementById("nav-links");
+    const menuIcon = document.getElementById("menu-icon");
+    const navLinks = document.getElementById("nav-links");
 
     if (menuIcon && navLinks) {
         menuIcon.addEventListener("click", function() {
@@ -18,10 +18,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // 2. Email Obfuscation (Safe from bots)
-    var emailElement = document.getElementById("secure-email");
+    const emailElement = document.getElementById("secure-email");
     if (emailElement) {
-        var user = "petra";
-        var domain = "math.uni-heidelberg.de";
+        const user = "petra";
+        const domain = "math.uni-heidelberg.de";
         emailElement.href = "mailto:" + user + "@" + domain;
     }
 });
