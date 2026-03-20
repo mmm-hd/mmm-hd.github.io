@@ -9,7 +9,7 @@ def main():
     build_date = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
 
     # 2. Load the templates
-    env = Environment(loader=FileSystemLoader('.'))
+    env = Environment(loader=FileSystemLoader('template'))
     header_tmpl = env.get_template('header.tmpl')
     footer_tmpl = env.get_template('footer.tmpl')
 
