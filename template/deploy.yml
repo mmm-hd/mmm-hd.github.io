@@ -1,0 +1,45 @@
+name: Deploy to GitHub Pages
+
+# 1. Run this workflow for every push to the main branch
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch: # Allows to run manually from the Actions tab if needed
+
+# 2. Grant permissions required for GitHub Pages deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 3. Prevent multiple builds from running at the exact same time
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Compile m4 to HTML
+        run: make
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload the entire current directory (which now contains the compiled .html files)
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
