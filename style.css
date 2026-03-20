@@ -59,8 +59,8 @@ a:hover {
 }
 
 .header .logo img {
-    height: 80px; 
-    width: auto;  
+    height: 80px;
+    width: auto;
     max-width: 100%;
     margin-right: 15px;
 }
@@ -86,7 +86,7 @@ a:hover {
 
 .header .links a:hover,
 .header .links a.active {
-    color: #5a8ab8; 
+    color: #5a8ab8;
 }
 
 .header .search-icon {
@@ -98,8 +98,8 @@ a:hover {
 
 /* --- Banner Styles --- */
 .banner {
-    /* Fallback color just in case the image doesn't load */
-    background: #7aa2f7 url('mountain_banner.jpg') no-repeat center center;
+    background: url('mountain_banner.jpg') no-repeat center center / cover;
+    background-color: #7aa2f7; /* Fallback color just in case the image doesn't load */
     height: 200px;
     display: flex;
     justify-content: center;
@@ -110,7 +110,7 @@ a:hover {
 .banner h1 {
     font-size: 2.5rem;
     margin: 0;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.3); 
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
 }
 
 .banner-slim {
@@ -129,10 +129,10 @@ a:hover {
 
 /* --- Contact Section Styles --- */
 .email-link {
-    background: #f4f7f8; 
+    background: #f4f7f8;
     padding: 15px 20px;
-    border-radius: 6px; 
-    display: inline-block; 
+    border-radius: 6px;
+    display: inline-block;
     margin-top: 10px;
     border: 1px solid #eeeeee;
 }
@@ -190,34 +190,34 @@ a:hover {
 /* 48em equals roughly 768px, but adapts to user font size settings */
 @media (max-width: 48em) {
     .header {
-        padding: 10px 20px; 
+        padding: 10px 20px;
     }
 
     .menu-icon {
-        display: block; 
+        display: block;
     }
 
     .header .links {
-        display: none; 
+        display: none;
         flex-direction: column;
         position: absolute;
-        top: 100%; 
-        right: 20px; 
-        left: auto;  
-        
+        top: 100%;
+        right: 20px;
+        left: auto;
+
         min-width: 200px;     /* Sets a comfortable baseline width */
         width: max-content;   /* Tells the menu to grow as wide as your longest link */
-        
-        border-radius: 8px; 
-        border: 1px solid #eeeeee; 
-        box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
+
+        border-radius: 8px;
+        border: 1px solid #eeeeee;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         background: #ffffff;
         padding: 10px 0;
-        z-index: 100; 
+        z-index: 100;
         gap: 0;
     }
 
-    .header .links a, 
+    .header .links a,
     .header .search-icon {
         padding: 12px 20px;
         display: block;
@@ -230,12 +230,12 @@ a:hover {
     }
 
     .container {
-        margin: 15px auto 30px auto; 
-        padding: 0 15px; 
+        margin: 15px auto 30px auto;
+        padding: 0 15px;
     }
 
     .banner {
-        height: 180px; 
+        height: 180px;
     }
 
     .banner h1 {
