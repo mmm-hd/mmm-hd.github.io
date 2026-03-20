@@ -98,7 +98,7 @@ a:hover {
 
 /* --- Banner Styles --- */
 .banner {
-    background: url('mountain_banner.jpg') no-repeat center center / cover;
+    background: url('images/mountain_banner.jpg') no-repeat center center / cover;
     background-color: #7aa2f7; /* Fallback color just in case the image doesn't load */
     height: 200px;
     display: flex;
