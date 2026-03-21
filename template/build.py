@@ -10,6 +10,7 @@ def main():
 
     # 2. Load the templates
     env = Environment(loader=FileSystemLoader('template'))
+    head_tmpl   = env.get_template('head.tmpl')
     header_tmpl = env.get_template('header.tmpl')
     footer_tmpl = env.get_template('footer.tmpl')
 
@@ -39,6 +40,7 @@ def main():
         }
 
         # Render the templates with the variables
+        head_out   = head_tmpl.render(**template_vars)
         header_out = header_tmpl.render(**template_vars)
         footer_out = footer_tmpl.render(**template_vars)
 
@@ -53,16 +55,20 @@ def main():
         for line in lines:
             if skip_mode:
                 # If we are inside a marker block, ignore everything except the END marker
-                if "END_HEADER" in line or "END_FOOTER" in line:
+                if "HEAD TEMPLATE END" in line or "HEADER TEMPLATE END" in line or "FOOTER TEMPLATE END" in line:
                     new_lines.append(line)
                     skip_mode = False
             else:
                 # Look for BEGIN markers
-                if "BEGIN_HEADER" in line:
+                if "HEAD TEMPLATE BEGIN" in line:
+                    new_lines.append(line)
+                    new_lines.append(head_out + '\n')
+                    skip_mode = True
+                elif "HEADER TEMPLATE BEGIN" in line:
                     new_lines.append(line)
                     new_lines.append(header_out + '\n')
                     skip_mode = True
-                elif "BEGIN_FOOTER" in line:
+                elif "FOOTER TEMPLATE BEGIN" in line:
                     new_lines.append(line)
                     new_lines.append(footer_out + '\n')
                     skip_mode = True
