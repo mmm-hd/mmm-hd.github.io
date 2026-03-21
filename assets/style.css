@@ -324,7 +324,6 @@ a:hover {
 
 .profile-photo {
     width: 100%;
-    height: auto;
     border-radius: 8px; /* Slightly rounded corners for the big bio photo */
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
