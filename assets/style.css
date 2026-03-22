@@ -68,7 +68,7 @@ a:hover {
 .menu-icon {
     display: none; /* Hidden on desktop */
     font-size: 1.8rem;
-    color: #5a8ab8;
+    color: #555555;
     cursor: pointer;
 }
 
