@@ -48,11 +48,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 5. Email Obfuscation (Safe from bots)
+    // 5. Email Obfuscation (safe from bots)
     const emailElement = document.getElementById("secure-email");
     if (emailElement) {
         const user   = "petra";
         const domain = "math.uni-heidelberg.de";
         emailElement.href   = "mailto:" + user + "@" + domain;
     }
+
+    // 6. Dynamic Header Height Calculation
+    const header = document.querySelector('.header');
+
+    function updateHeaderHeight() {
+        if (header) {
+            // Get the exact height of the header in pixels
+            const headerHeight = header.offsetHeight;
+            // Write it to a CSS variable named --header-height
+            document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
+        }
+    }
+
+    // Run on load and whenever the window is resized
+    updateHeaderHeight();
+    window.addEventListener('resize', updateHeaderHeight);
 });

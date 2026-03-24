@@ -1,10 +1,16 @@
-/* --- Global Styles --- */
-html {
-    scroll-behavior: smooth;
-    /* Tells the browser to stop scrolling 120px before the top edge */
-    scroll-padding-top: 120px;
+/* Define a fallback of 100px just in case JS fails to load */
+:root {
+    --header-height: 100px;
+    --sticky-gap: 20px; /* The breathing room between the header and the ToC */
+    --total-offset: calc(var(--header-height) + var(--sticky-gap));
 }
 
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--total-offset);
+}
+
+/* --- Global Styles --- */
 body {
     background: #ffffff;
     color: #333333;
@@ -400,10 +406,10 @@ a:hover {
 /* 2. The ToC becomes sticky AND scrollable if the screen is too short */
 .toc-nav {
     position: sticky;
-    top: 120px; /* Stops beneath your fixed header */
+    top: var(--total-offset); /* Stops beneath your fixed header */
 
     /* Dynamically calculate the maximum safe height (100% of viewport height minus header and margins) */
-    max-height: calc(100vh - 140px);
+    max-height: calc(100vh - var(--total-offset) - var(--sticky-gap));
     overflow-y: auto; /* Adds an internal scrollbar only if the links exceed the max-height */
 
     text-align: left;
@@ -517,4 +523,21 @@ a:hover {
         text-align: center;
         gap: 10px; /* Adds a little space between the two lines */
     }
+}
+
+/* --- Publication Year Headings --- */
+.year-heading {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eeeeee; /* Light grey baseline */
+    color: #5a8ab8; /* Your brand blue */
+    font-size: 1.6rem;
+    font-weight: 500;
+    position: relative;
+}
+
+/* Strip top margin for the very first year to align with the text above it */
+.year-heading:first-of-type {
+    margin-top: 30px;
 }
