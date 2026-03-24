@@ -384,10 +384,20 @@ a:hover {
 
     /* 3. Center the photo reliably using inline-block */
     .profile-photo {
-        width: 100%;
-        max-width: 250px;
+        /* Instructs browser to maintain proportional scaling */
+        display: block;
+        width: auto;     /* Do not force full width */
+        height: auto;    /* Let height follow proportionally */
+
+        /* Set the maximal horizontal boundary */
+        max-width: 200px; /* Reduced slightly from 250px for tight screens */
+
+        /* Set the maximal vertical boundary (the fix) */
+        /* Caps the photo height at 35% of the viewport height */
+        max-height: 35vh;
+
+        /* Standard centering and spacing */
         margin: 0 auto 15px auto;
-        display: inline-block;
     }
 
     /* 4. Let the main content naturally flow below */
