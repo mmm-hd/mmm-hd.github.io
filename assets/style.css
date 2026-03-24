@@ -1,4 +1,10 @@
 /* --- Global Styles --- */
+html {
+    scroll-behavior: smooth;
+    /* Tells the browser to stop scrolling 120px before the top edge */
+    scroll-padding-top: 120px;
+}
+
 body {
     background: #ffffff;
     color: #333333;
@@ -47,7 +53,10 @@ a:hover {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #eeeeee;
-    position: relative; /* Required for the mobile dropdown to anchor correctly */
+    /* Sticky header */
+    position: sticky;
+    top: 0;
+    z-index: 2000
 }
 
 .header .logo {
@@ -327,7 +336,7 @@ a:hover {
     width: 100%;
     max-width: 250px;
     position: sticky;
-    top: 20px;
+    top: 120px;
     height: max-content; /* Required for sticky to work inside Grid */
 }
 
