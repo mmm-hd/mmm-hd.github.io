@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} &mdash; MMM</title>
+    <link rel="stylesheet" href="{{ PATH_PREFIX }}assets/style.css">
+</head>
+<body>
+    {% include 'navbar.tmpl' %}
+
+    <div class="profile-layout">
+        <aside class="profile-sidebar">
+            <img src="{{ PATH_PREFIX }}{{ photo }}" alt="{{ title }}" class="profile-photo">
+            <h3 style="margin-top: 15px; margin-bottom: 20px;">{{ role }}</h3>
+
+            <div class="toc-toggle" id="toc-toggle">&#9776; Contents</div>
+
+            <nav class="toc-nav" id="toc-nav">
+                {{ toc_html }}
+            </nav>
+        </aside>
+
+        <main class="profile-content">
+            {{ content }}
+        </main>
+    </div>
+
+    {% include 'footer.tmpl' %}
+</body>
+</html>
