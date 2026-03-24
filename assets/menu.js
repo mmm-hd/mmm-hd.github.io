@@ -20,8 +20,27 @@ document.addEventListener("DOMContentLoaded", function() {
     // 2. Email Obfuscation (Safe from bots)
     const emailElement = document.getElementById("secure-email");
     if (emailElement) {
-        const user = "petra";
+        const user   = "petra";
         const domain = "math.uni-heidelberg.de";
-        emailElement.href = "mailto:" + user + "@" + domain;
+        emailElement.href   = "mailto:" + user + "@" + domain;
+    }
+
+    // 3. ToC toggle logic for employee pages
+    const tocToggle = document.getElementById('toc-toggle');
+    const tocNav = document.getElementById('toc-nav');
+
+    if (tocToggle && tocNav) {
+        // Toggle the menu open/closed when the button is tapped
+        tocToggle.addEventListener('click', () => {
+            tocNav.classList.toggle('active');
+        });
+
+        // Automatically close the menu when any link inside it is clicked
+        const tocLinks = tocNav.querySelectorAll('a');
+        tocLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                tocNav.classList.remove('active');
+            });
+        });
     }
 });

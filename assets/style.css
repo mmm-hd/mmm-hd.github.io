@@ -310,37 +310,155 @@ a:hover {
 }
 
 /* --- Individual Profile Page Styles --- */
-.profile-container {
-    display: flex;
+/* Full-width Grid Layout */
+.profile-layout {
+    display: grid;
+    /* 1. Left Margin | 2. Main Content (max 800px) | 3. Right Margin */
+    grid-template-columns: 1fr minmax(auto, 800px) 1fr;
     gap: 40px;
-    align-items: flex-start;
+    margin-top: 30px;
+    padding: 0 20px; /* Padding prevents content from touching screen edges */
 }
 
+/* Sidebar placed in the Left Margin (Column 1) */
 .profile-sidebar {
-    flex: 1;
+    grid-column: 1;
+    justify-self: end; /* Aligns the sidebar to the right edge of the margin */
+    width: 100%;
     max-width: 250px;
-    text-align: center;
+    position: sticky;
+    top: 20px;
+    height: max-content; /* Required for sticky to work inside Grid */
 }
 
+/* Main Content placed in the Center (Column 2) */
+.profile-content {
+    grid-column: 2;
+}
+
+/* Sidebar Image & Nav styling remains unchanged */
 .profile-photo {
     width: 100%;
-    border-radius: 8px; /* Slightly rounded corners for the big bio photo */
+    border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
 }
 
-.profile-content {
-    flex: 2;
-}
-
-/* Stack them on top of each other on mobile phones */
-@media (max-width: 48em) {
-    .profile-container {
-        flex-direction: column;
-        align-items: center; /* Centers the photo */
+/* Responsive Tablet/Mobile View */
+/* Increased breakpoint to 64em (1024px) to ensure margins are wide enough before stacking */
+@media (max-width: 64em) {
+    .profile-layout {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 20px;
     }
-    
+
     .profile-sidebar {
-        max-width: 300px;
+        grid-column: 1;
+        justify-self: center;
+        position: relative; /* Required for z-index to work */
+        z-index: 10; /* Pulls the sidebar above any invisible overlapping margins */
+        width: 100%;
+        max-width: 100%; /* Allow it to span the screen on mobile like a wiki */
+    }
+
+    .profile-photo {
+        max-width: 300px; /* Keep the photo constrained, even though the sidebar is full width */
+        margin: 0 auto 20px auto;
+        display: block;
+    }
+
+    .profile-sidebar h3 {
+        text-align: center; /* Keep the title centered under the photo */
+    }
+
+    .profile-content {
+        grid-column: 1;
+        width: 100%;
+        max-width: 800px;
+    }
+}
+
+/* --- Table of Contents --- */
+.toc-nav {
+    text-align: left;
+    background: #f4f4f4;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.toc-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-nav a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.toc-nav a:last-child {
+    border-bottom: none;
+}
+
+.toc-toggle {
+    display: none;
+}
+
+@media (max-width: 64em) {
+    /* FAB Toggle Button (Pill shape) */
+    .toc-toggle {
+        display: block;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        background: #5a8ab8; /* Uses your brand blue */
+        color: #ffffff;
+        padding: 12px 20px;
+        border-radius: 30px; /* Creates the pill shape */
+        border: none;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        text-align: center;
+        margin: 0;
+        user-select: none;
+    }
+
+    /* Floating Pop-up Navigation Menu */
+    .toc-nav {
+        display: none;
+        position: fixed;
+        bottom: 75px; /* Sits just above the FAB */
+        right: 20px;
+        z-index: 999;
+        background: #ffffff;
+        border: 1px solid #eeeeee;
+        border-radius: 8px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        padding: 10px;
+        width: 200px; /* Fixed width for the popup */
+        margin: 0;
+    }
+
+    .toc-nav.active {
+        display: block;
+    }
+
+    /* Clean up the links inside the mobile popup */
+    .toc-nav a {
+        padding: 10px 15px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .toc-nav a:last-child {
+        border-bottom: none;
     }
 }
 
