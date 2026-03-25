@@ -6,7 +6,7 @@
 }
 
 html {
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; */
     scroll-padding-top: var(--total-offset);
 }
 
@@ -480,7 +480,8 @@ a:hover {
     .toc-nav {
         display: none;
         position: fixed;
-        bottom: 75px; /* Sits just above the FAB */
+        top: auto;
+        bottom: 75px;      /* Sits just above the FAB */
         right: 20px;
         z-index: 999;
         background: #ffffff;
@@ -488,8 +489,9 @@ a:hover {
         border-radius: 8px;
         box-shadow: 0 8px 24px rgba(0,0,0,0.15);
         padding: 10px;
-        width: 200px; /* Fixed width for the popup */
+        width: 200px;
         margin: 0;
+        max-height: 60vh;  /* <-- Keep long menus from overflowing the menu */
     }
 
     .toc-nav.active {
