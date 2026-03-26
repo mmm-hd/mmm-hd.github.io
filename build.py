@@ -13,14 +13,7 @@ from bs4 import BeautifulSoup
 
 def setup_environment():
     """Initialize and return the Jinja environment."""
-    env = Environment(loader=FileSystemLoader('template'))
-
-    return {
-        'base': env.get_template('base.tmpl'),
-        'profile': env.get_template('profile.tmpl'),
-        'team': env.get_template('team.tmpl'),
-        'publications': env.get_template('publications.tmpl')
-    }
+    return Environment(loader=FileSystemLoader('template'))
 
 
 def parse_bibtex(bib_filename):
@@ -46,7 +39,7 @@ def parse_bibtex(bib_filename):
         return all_pubs
 
 
-def process_file(filepath, templates, source_dir, output_dir):
+def process_file(filepath, env, source_dir, output_dir):
     # Calculate path relative to the 'md' directory
     rel_path        = os.path.relpath(filepath, source_dir)
     normalized_path = rel_path.replace(os.sep, '/')
@@ -56,85 +49,49 @@ def process_file(filepath, templates, source_dir, output_dir):
     depth = normalized_path.count('/')
     prefix = '../' * depth if depth > 0 else ''
 
-    # Determine active menu states
-    is_home = (filename == 'index.md' and depth == 0)
-    is_projects     = 'projects.md' in normalized_path
-    is_teaching     = 'teaching.md' in normalized_path
-    is_team         = 'team.md' in normalized_path or '/team/' in normalized_path
-    is_publications = 'publications.md' in normalized_path
-
     # Parse YAML frontmatter and markdown
     post            = frontmatter.load(filepath)
     md              = markdown.Markdown(extensions=['toc'])
     html_content    = md.convert(post.content)
     toc_html        = md.toc
 
-    # Parse BibTeX files
+    # 1. Base context starts with values in the YAML frontmatter
+    context = post.metadata.copy()
+
+    # 2. Inject calculated routing variables
+    context.update({
+        'content': html_content,
+        'toc_html': md.toc,
+        'PATH_PREFIX': prefix,
+        'IS_HOME': (filename == 'index.md' and depth == 0),
+        'IS_PROJECTS': 'projects.md' in normalized_path,
+        'IS_TEACHING': 'teaching.md' in normalized_path,
+        'IS_TEAM': 'team.md' in normalized_path or '/team/' in normalized_path,
+        'IS_PUBLICATIONS': 'publications.md' in normalized_path
+    })
+
+    # 3. Parse BibTeX files
     all_pubs = []
     bib_filename = post.get('bib_file')
 
     if bib_filename:
         try:
             all_pubs = parse_bibtex(bib_filename)
+            context['publications'] = all_pubs
         except FileNotFoundError:
             print(f"Warning: BibTeX file '{bib_filename}' not found for {filepath}")
 
+    # 4. Dynamically load the requested template
     layout_choice = post.get('layout', 'base')
 
-    # Select and render the template
-    if layout_choice == 'publications':
-       final_html = templates['publications'].render(
-           title=post.get('title', 'Publications'),
-           content=html_content,
-           publications=all_pubs,
-           PATH_PREFIX=prefix,
-           IS_HOME=is_home,
-           IS_PROJECTS=is_projects,
-           IS_TEACHING=is_teaching,
-           IS_TEAM=is_team,
-           IS_PUBLICATIONS=is_publications
-       )
-    elif layout_choice == 'profile':
-        final_html = templates['profile'].render(
-            title=post.get('title', 'Team Member'),
-            role=post.get('role', ''),
-            photo=post.get('photo', ''),
-            toc_html=toc_html,
-            content=html_content,
-            PATH_PREFIX=prefix,
-            IS_HOME=is_home,
-            IS_PROJECTS=is_projects,
-            IS_TEACHING=is_teaching,
-            IS_TEAM=is_team,
-            IS_PUBLICATIONS=is_publications
-        )
-    elif layout_choice == 'team':
-        final_html = templates['team'].render(
-            title=post.get('title', 'Team'),
-            content=html_content,
-            members=post.get('members', []),
-            affiliates=post.get('affiliates', []),
-            PATH_PREFIX=prefix,
-            IS_HOME=is_home,
-            IS_PROJECTS=is_projects,
-            IS_TEACHING=is_teaching,
-            IS_TEAM=is_team,
-            IS_PUBLICATIONS=is_publications
-        )
-    elif layout_choice == 'base':
-        final_html = templates['base'].render(
-            title=post.get('title', 'Page'),
-            content=html_content,
-            PATH_PREFIX=prefix,
-            IS_HOME=is_home,
-            IS_PROJECTS=is_projects,
-            IS_TEACHING=is_teaching,
-            IS_TEAM=is_team,
-            IS_PUBLICATIONS=is_publications
-        )
-    else:
-        print(f"build.py: unsupported layout: {layout_choice}")
-        sys.exit(1)
+    try:
+        template = env.get_template(f"{layout_choice}.tmpl")
+    except Exception:
+        print(f"Warning: Template '{layout_choice}.tmpl' not found. Falling back to 'base.tmpl'.")
+        template = env.get_template("base.tmpl")
+
+    # 5. Render the template
+    final_html = template.render(**context)
 
     # Save the output
     output_rel_path = rel_path.replace('.md', '.html')
@@ -154,7 +111,7 @@ def process_file(filepath, templates, source_dir, output_dir):
 
 
 if __name__ == "__main__":
-    templates = setup_environment()
+    env = setup_environment()
     files_to_build = sys.argv[1:]
     source_dir = 'md'
     output_dir = '.'
@@ -167,4 +124,4 @@ if __name__ == "__main__":
                     files_to_build.append(os.path.join(root, file))
 
     for f in files_to_build:
-        process_file(f, templates, source_dir, output_dir)
+        process_file(f, env, source_dir, output_dir)
