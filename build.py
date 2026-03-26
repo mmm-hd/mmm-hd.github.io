@@ -5,6 +5,7 @@ import markdown
 import frontmatter
 import bibtexparser
 
+from datetime import datetime
 from bibtexparser.bparser import BibTexParser
 from bibtexparser.customization import convert_to_unicode
 from jinja2 import Environment, FileSystemLoader
@@ -67,7 +68,8 @@ def process_file(filepath, env, source_dir, output_dir):
         'IS_PROJECTS': 'projects.md' in normalized_path,
         'IS_TEACHING': 'teaching.md' in normalized_path,
         'IS_TEAM': 'team.md' in normalized_path or '/team/' in normalized_path,
-        'IS_PUBLICATIONS': 'publications.md' in normalized_path
+        'IS_PUBLICATIONS': 'publications.md' in normalized_path,
+        'BUILD_DATE': datetime.now().strftime("%B %d, %Y"), # e.g., "March 26, 2026"
     })
 
     # 3. Parse BibTeX files
