@@ -13,7 +13,8 @@ and group members will be available soon.
 
 ## Group Leader
 
-**Prof. Stefania Petra** Mathematical Modelling in Medicine  
+**Prof. Stefania Petra**  
+Mathematical Modelling in Medicine  
 Mannheim Institute for Intelligent Systems in Medicine (MIISM)  
 University of Heidelberg
 
