@@ -1,6 +1,7 @@
 /* Define a fallback of 100px just in case JS fails to load */
 :root {
     --header-height: 100px;
+    --container-width: 900px;
     --sticky-gap: 20px; /* The breathing room between the header and the ToC */
     --total-offset: calc(var(--header-height) + var(--sticky-gap));
 }
@@ -17,6 +18,10 @@ body {
     font-family: system-ui, sans-serif;
     margin: 0;
     line-height: 1.6;
+    /* Sticky Footer: Ensure body takes up full height */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 h1 {
@@ -46,9 +51,13 @@ a:hover {
 }
 
 .container {
-    max-width: 750px;
-    margin: 20px auto 40px auto; 
+    max-width: var(--container-width);
+    margin: 20px auto 40px auto;
     padding: 0 20px;
+    /* Sticky Footer: Allow container to expand and push footer down */
+    flex-grow: 1;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* --- Header Styles --- */
@@ -164,22 +173,13 @@ a:hover {
 }
 
 .container ul li {
-    margin-bottom: 20px; /* Space between each publication */
+    margin-bottom: 20px; /* General list spacing */
     line-height: 1.7;
     color: #444444; /* Slightly softer text for the main body */
 }
 
-/* 2. Style the specific publication elements */
-.container .authors {
-    color: #666666; /* Makes the author list slightly faded */
-}
-
-.container .title {
-    color: #111111; /* Keeps the titles dark and punchy */
-}
-
-/* 3. Turn the [pdf] and [www] links into polished buttons */
-.container ul li a {
+/* 2. Turn the [pdf] and [www] links into polished buttons */
+.pub-btn {
     display: inline-block;
     padding: 2px 10px;
     margin-left: 6px;
@@ -193,77 +193,19 @@ a:hover {
     transition: all 0.2s ease; /* Makes the hover effect smooth */
 }
 
-/* 4. The hover effect for the buttons */
-.container ul li a:hover {
+/* 3. The hover effect for the buttons */
+.pub-btn:hover {
     background-color: #5a8ab8;
     color: #ffffff;
     border-color: #5a8ab8;
-}
-
-/* --- Mobile Responsive Layout (Media Queries) --- */
-
-/* 48em equals roughly 768px, but adapts to user font size settings */
-@media (max-width: 48em) {
-    .header {
-        padding: 10px 20px;
-    }
-
-    .menu-icon {
-        display: block;
-    }
-
-    .header .links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        right: 20px;
-        left: auto;
-
-        min-width: 200px;     /* Sets a comfortable baseline width */
-        width: max-content;   /* Tells the menu to grow as wide as your longest link */
-
-        border-radius: 8px;
-        border: 1px solid #eeeeee;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-        background: #ffffff;
-        padding: 10px 0;
-        z-index: 100;
-        gap: 0;
-    }
-
-    .header .links a,
-    .header .search-icon {
-        padding: 12px 20px;
-        display: block;
-        border-bottom: 1px solid #eeeeee;
-    }
-
-    /* Class triggered by JavaScript to show the menu */
-    .header .links.show-menu {
-        display: flex;
-    }
-
-    .container {
-        margin: 15px auto 30px auto;
-        padding: 0 15px;
-    }
-
-    .banner {
-        height: 180px;
-    }
-
-    .banner h1 {
-        font-size: 2rem; 
-    }
+    text-decoration: none;
 }
 
 /* --- Team Grid Styles --- */
 .team-grid {
     display: grid;
-    /* This is the magic line! It automatically creates columns 
-       that are at least 220px wide, and expands them to fill space. 
-       On phones, it naturally drops to 1 column! */
+    /* Automatically creates columns that are at least 220px wide, and expands them to fill space.
+       On phones, it naturally drops to 1 column. */
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 30px;
     margin-top: 20px;
@@ -274,12 +216,12 @@ a:hover {
     display: block; /* Ensures the <a> tag behaves like a block container */
     text-decoration: none; /* Removes the underline from the link */
     color: inherit; /* Prevents the text from turning default blue */
-    
+
     background: #f9fbfc;
     border: 1px solid #eeeeee;
     border-radius: 8px;
     padding: 25px 20px;
-    text-align: center; 
+    text-align: center;
     box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -288,7 +230,7 @@ a:hover {
 .team-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0,0,0,0.06);
-    text-decoration: none; 
+    text-decoration: none;
 }
 
 .team-card img {
@@ -357,61 +299,6 @@ a:hover {
     margin-bottom: 20px;
 }
 
-/* Responsive Tablet/Mobile View */
-/* Increased breakpoint to 64em (1024px) to ensure margins are wide enough before stacking */
-@media (max-width: 64em) {
-    .banner-slim {
-        margin-bottom: 20px;
-    }
-
-    /* 1. Force a strict vertical block stack (No Grid, No Flex) */
-    .profile-layout {
-        display: block;
-        padding: 0 15px;
-        margin-top: 0;
-    }
-
-    /* 2. Completely reset the sidebar to prevent layout collapse */
-    .profile-sidebar {
-        position: static; /* Explicitly disables the desktop sticky behavior */
-        display: block;
-        width: 100%;
-        max-width: 100%; /* Overrides the 250px desktop limit so it can center */
-        text-align: center; /* Forces the inline elements (photo/text) to center */
-        margin-bottom: 30px; /* Hard separation from the content below */
-        height: auto;
-    }
-
-    /* 3. Center the photo reliably using inline-block */
-    .profile-photo {
-        /* Instructs browser to maintain proportional scaling */
-        display: block;
-        width: auto;     /* Do not force full width */
-        height: auto;    /* Let height follow proportionally */
-
-        /* Set the maximal horizontal boundary */
-        max-width: 200px; /* Reduced slightly from 250px for tight screens */
-
-        /* Set the maximal vertical boundary (the fix) */
-        /* Caps the photo height at 35% of the viewport height */
-        max-height: 35vh;
-
-        /* Standard centering and spacing */
-        margin: 0 auto 15px auto;
-    }
-
-    /* 4. Let the main content naturally flow below */
-    .profile-content {
-        display: block;
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .profile-content h2:first-of-type {
-        margin-top: 0; /* Prevents margin collapse issues with the sidebar */
-    }
-}
-
 /* --- Table of Contents --- */
 /* 2. The ToC becomes sticky AND scrollable if the screen is too short */
 .toc-nav {
@@ -454,7 +341,113 @@ a:hover {
     display: none;
 }
 
+/* --- Footer Styles --- */
+.footer {
+    background-color: #f4f7f8;
+    border-top: 1px solid #eeeeee;
+    padding: 20px 0; /* Adjusted padding */
+    color: #666666;
+    font-size: 0.85rem;
+    /* Sticky Footer: Push footer to bottom */
+    margin-top: auto;
+}
+
+/* Flexbox puts them on a single row, pushed to opposite sides */
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    max-width: var(--container-width); /* Keep footer content aligned with main container */
+    padding: 0 20px;
+}
+
+/* Ensure the text inside aligns with the container edges */
+.footer-left {
+    display: block;
+    text-align: left;
+}
+
+.footer-right {
+    display: block;
+    text-align: right;
+}
+
+/* --- Publication Year Headings --- */
+.year-heading {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eeeeee; /* Light grey baseline */
+    color: #5a8ab8; /* Your brand blue */
+    font-size: 1.6rem;
+    font-weight: 500;
+    position: relative;
+}
+
+/* Strip top margin for the very first year to align with the text above it */
+.year-heading:first-of-type {
+    margin-top: 30px;
+}
+
+/* --- Publication Links --- */
+.publication-list {
+    list-style-type: square;
+    padding-left: 20px;
+}
+
+.publication-list li {
+    line-height: 1.5;
+}
+
+.pub-links {
+    display: inline-block; /* Forces the container to sit on the same line as the text */
+    margin-top: 0;         /* Removes the old top margin */
+    font-size: 0.9rem;
+}
+
+/* --- Mobile Responsive Layout (Media Queries) --- */
+
+/* Tablet & Mobile (max-width: 1024px / 64em) */
 @media (max-width: 64em) {
+    .banner-slim {
+        margin-bottom: 20px;
+    }
+
+    /* 1. Force a strict vertical block stack (No Grid, No Flex) */
+    .profile-layout {
+        display: block;
+        padding: 0 15px;
+        margin-top: 0;
+    }
+
+    /* 2. Completely reset the sidebar to prevent layout collapse */
+    .profile-sidebar {
+        position: static; /* Explicitly disables the desktop sticky behavior */
+        display: block;
+        width: 100%;
+        max-width: 100%; /* Overrides the 250px desktop limit so it can center */
+        text-align: center; /* Forces the inline elements (photo/text) to center */
+        margin-bottom: 30px; /* Hard separation from the content below */
+        height: auto;
+    }
+
+    /* 3. Center the photo reliably using inline-block */
+    .profile-photo {
+        /* Instructs browser to maintain proportional scaling */
+        display: block;
+        width: auto;     /* Do not force full width */
+        height: auto;    /* Let height follow proportionally */
+        max-width: 200px; /* Reduced slightly from 250px for tight screens */
+        max-height: 35vh; /* Caps the photo height at 35% of viewport */
+        margin: 0 auto 15px auto;
+    }
+
+    /* 4. Let the main content naturally flow below */
+    .profile-content h2:first-of-type {
+        margin-top: 0; /* Prevents margin collapse issues with the sidebar */
+    }
+
     /* FAB Toggle Button (Pill shape) */
     .toc-toggle {
         display: block;
@@ -503,53 +496,72 @@ a:hover {
         padding: 10px 15px;
         border-bottom: 1px solid #f0f0f0;
     }
-
-    .toc-nav a:last-child {
-        border-bottom: none;
-    }
 }
 
-/* --- Footer Styles --- */
-.footer {
-    background-color: #f4f7f8;
-    border-top: 1px solid #eeeeee;
-    padding: 20px 0; /* Adjusted padding */
-    margin-top: 60px;
-    color: #666666;
-    font-size: 0.85rem;
-}
-
-/* Flexbox puts them on a single row, pushed to opposite sides */
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 auto;
-    box-shadow: none;
-}
-
-/* On mobile screens, stack the left and right text vertically */
+/* Phones (max-width: 768px / 48em) */
 @media (max-width: 48em) {
+    .header {
+        padding: 10px 20px;
+    }
+
+    .menu-icon {
+        display: block;
+    }
+
+    .header .links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        right: 20px;
+        left: auto;
+
+        min-width: 200px;     /* Sets a comfortable baseline width */
+        width: max-content;   /* Tells the menu to grow as wide as your longest link */
+
+        border-radius: 8px;
+        border: 1px solid #eeeeee;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        background: #ffffff;
+        padding: 10px 0;
+        z-index: 100;
+        gap: 0;
+    }
+
+    .header .links a,
+    .header .search-icon {
+        padding: 12px 20px;
+        display: block;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    /* Class triggered by JavaScript to show the menu */
+    .header .links.show-menu {
+        display: flex;
+    }
+
+    .container {
+        margin: 15px auto 30px auto;
+        padding: 0 15px;
+    }
+
+    .banner {
+        height: 180px;
+    }
+
+    .banner h1 {
+        font-size: 2rem;
+    }
+
+    /* On mobile screens, stack the left and right text vertically */
     .footer-content {
         flex-direction: column;
         text-align: center;
         gap: 10px; /* Adds a little space between the two lines */
     }
-}
 
-/* --- Publication Year Headings --- */
-.year-heading {
-    margin-top: 50px;
-    margin-bottom: 20px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #eeeeee; /* Light grey baseline */
-    color: #5a8ab8; /* Your brand blue */
-    font-size: 1.6rem;
-    font-weight: 500;
-    position: relative;
-}
-
-/* Strip top margin for the very first year to align with the text above it */
-.year-heading:first-of-type {
-    margin-top: 30px;
+    .footer-left, .footer-right {
+        text-align: center; /* Center both strings when stacked on phones */
+        width: 100%;
+    }
 }
