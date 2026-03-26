@@ -24,15 +24,18 @@
             <ul class="publication-list">
                 {% for pub in year_pubs %}
                 <li style="margin-bottom: 20px;">
-                    <span class="authors">{{ pub.author }}</span>.
-                    <strong><span class="title">{{ pub.title }}</span>.</strong>
-                    <em>{{ pub.journal }}</em>, {{ year }}.
+                    <span class="authors">{{ pub.author }}</span>
 
-                    <div class="pub-links">
-                        {% if pub.url %}
-                        <a href="{{ pub.url }}" target="_blank" class="pub-btn">[PDF]</a>
-                        {% endif %}
+                    {%- if pub.journal -%}
+                        , <em>{{ pub.journal }}</em>
+                    {%- endif -%}
+                    {%- if pub.year -%}
+                        , {{ pub.year }}
+                    {%- endif -%}.
 
+                    <strong><span class="title">{{ pub.title }}</span></strong>
+
+                    <span class="pub-links">
                         {% if pub.doi %}
                         <a href="https://doi.org/{{ pub.doi }}" target="_blank" class="pub-btn">[DOI]</a>
                         {% endif %}
@@ -40,7 +43,7 @@
                         {% if pub.eprint %}
                         <a href="https://arxiv.org/abs/{{ pub.eprint }}" target="_blank" class="pub-btn">[arXiv]</a>
                         {% endif %}
-                    </div>
+                    </span>
                 </li>
                 {% endfor %}
             </ul>

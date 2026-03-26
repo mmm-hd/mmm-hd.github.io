@@ -173,12 +173,25 @@ a:hover {
 }
 
 .container ul li {
-    margin-bottom: 20px; /* General list spacing */
+    margin-bottom: 10px; /* General list spacing */
     line-height: 1.7;
     color: #444444; /* Slightly softer text for the main body */
 }
 
-/* 2. Turn the [pdf] and [www] links into polished buttons */
+/* 2. Style the specific publication elements */
+.publication-list .authors {
+    color: #666666; /* Makes the author list slightly faded */
+}
+
+.publication-list .title {
+    color: #111111; /* Keeps the titles dark and punchy */
+}
+
+.publication-list li {
+    margin-bottom: 20px; /* Specific space between each publication */
+}
+
+/* 3. Turn the [pdf] and [www] links into polished buttons */
 .pub-btn {
     display: inline-block;
     padding: 2px 10px;
@@ -193,7 +206,7 @@ a:hover {
     transition: all 0.2s ease; /* Makes the hover effect smooth */
 }
 
-/* 3. The hover effect for the buttons */
+/* 4. The hover effect for the buttons */
 .pub-btn:hover {
     background-color: #5a8ab8;
     color: #ffffff;
