@@ -5,16 +5,19 @@ import markdown
 import frontmatter
 import bibtexparser
 
+from l2m4m import LaTeX2MathMLExtension
 from datetime import datetime
 from bibtexparser.bparser import BibTexParser
 from bibtexparser.customization import convert_to_unicode
 from jinja2 import Environment, FileSystemLoader
-from bs4 import BeautifulSoup
 
 
 def setup_environment():
     """Initialize and return the Jinja environment."""
-    return Environment(loader=FileSystemLoader('template'))
+    return Environment(loader=FileSystemLoader('template'),
+                       trim_blocks=True,    # Removes the first newline after a block
+                       lstrip_blocks=True   # Strips tabs and spaces from the start of a line to a block
+    )
 
 
 def parse_bibtex(bib_filename):
@@ -52,7 +55,7 @@ def process_file(filepath, env, source_dir, output_dir):
 
     # Parse YAML frontmatter and markdown
     post            = frontmatter.load(filepath)
-    md              = markdown.Markdown(extensions=['toc'])
+    md              = markdown.Markdown(extensions=['toc','extra','codehilite',LaTeX2MathMLExtension()])
     html_content    = md.convert(post.content)
     toc_html        = md.toc
 
@@ -102,12 +105,9 @@ def process_file(filepath, env, source_dir, output_dir):
     # Ensure the target directory structure exists before writing
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
-    # Parse the HTML and format it with proper indentation
-    soup = BeautifulSoup(final_html, 'html.parser')
-    pretty_html = soup.prettify()
-
+    # Print the HTML
     with open(output_path, 'w', encoding='utf-8') as f:
-        f.write(pretty_html)
+        f.write(final_html)
 
     print(f"Built: {output_path}")
 
