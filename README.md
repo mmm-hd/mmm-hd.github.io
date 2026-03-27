@@ -52,6 +52,8 @@ Simple changes can be done directly in the Github editor.
 For larger changes that affect more people (i.e. more than your personal
 space), _pull requests_ are suggested.
 
+https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests
+
 Unfortunately there is no universal guide for `git`. Suggestions:
 
 * https://git-scm.com/docs/gittutorial (text-oriented)
