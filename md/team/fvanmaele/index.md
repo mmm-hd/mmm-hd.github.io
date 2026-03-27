@@ -46,34 +46,5 @@ amet fermentum est, ut iaculis orci.
 
 ## Research
 
-Here is an inline math equation: $E = mc^2$.
-
-Here is a block math equation:
-
-$$
-\frac{d}{dx} e^x = e^x
-$$
-
-And here is an alternative notation for a block math equation:
-
-\[
-x^n + y^n = z^n
-\]
-
 
 ## Publications
-
-
-## Bikini Bottom
-
-```c
-#include <iostream>
-
-int main() {
-    std::cout << "Hello world!" << std::endl;
-}   
-```
-
-## The Sound of Music
-
-## Mallorca

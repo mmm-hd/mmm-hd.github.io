@@ -103,10 +103,10 @@ x^n + y^n = z^n
 
 ### Building the site
 
-> **Note**: Eventually this repository will only contain the markdown files,
-> with HTML files automatically generated on each commit (#8). Until then,
-> you need to include the updated HTML files with your commit.
-
+> **Note**: The `main` branch of his repository only contains the markdown files.
+> On each commit, the corresponding `html` files are pushed to the `gh-pages` branch.
+> The below can be used if you want to preview larger changes to the website locally.
+ 
 Requirements: Python 3.9+
 
 First, retrieve or update the repository:
