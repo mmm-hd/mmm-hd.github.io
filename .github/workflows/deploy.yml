@@ -49,3 +49,5 @@ jobs:
             dodo.py
             build.py
             .doit.db
+            .gitignore
+            README.md

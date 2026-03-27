@@ -14,11 +14,12 @@ The website has the following components:
   * Convert BibTeX files (`bibtexparser`)
   * `dodo.py` detects which `md` files need to be rebuilt
 
+
 ### Employee pages
 
 Every employee has their own "webspace" as a subdirectory in `team/`.
 The base page should be edited in `index.md`. The header consists of a
-profile photo, team role, title and text (markdown) body.
+profile photo, team role, title and text (Markdown) body.
 
 To include publications, add a BibTeX file and write the name in
 `bib_file`. The publications can then be inserted with the `[PUBL]`
