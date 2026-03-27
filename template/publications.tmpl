@@ -25,6 +25,7 @@
                 {% for pub in year_pubs %}
                 <li style="margin-bottom: 20px;">
                     <span class="authors">{{ pub.author }}</span>
+                    <strong><span class="title">{{ pub.title }}</span></strong>
 
                     {%- if pub.journal -%}
                         , <em>{{ pub.journal }}</em>
@@ -32,8 +33,6 @@
                     {%- if pub.year -%}
                         , {{ pub.year }}
                     {%- endif -%}.
-
-                    <strong><span class="title">{{ pub.title }}</span></strong>
 
                     <span class="pub-links">
                         {% if pub.doi %}
