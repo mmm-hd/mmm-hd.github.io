@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} &mdash; MMM</title>
+    <link rel="stylesheet" href="{{ PATH_PREFIX }}assets/style.css">
+    <link rel="preload" as="image" href="{{ PATH_PREFIX }}assets/images/mountain_banner.webp" type="image/webp" fetchpriority="high">
+</head>
+<body>
+    {% include 'navbar.tmpl' %}
+
+    <div class="banner">
+        <h1>{{ title }}</h1>
+    </div>
+
+    <main class="container">
+        {{ content }}
+
+        {% for year, year_pubs in publications|groupby('year')|reverse %}
+
+            <h2 class="year-heading" id="year-{{ year }}">{{ year }}</h2>
+
+            <ul class="publication-list">
+                {% for pub in year_pubs %}
+                <li style="margin-bottom: 20px;">
+                    <span class="authors">{{ pub.author }}</span>
+                    <strong><span class="title">{{ pub.title }}</span></strong>
+
+                    {%- if pub.journal -%}
+                        , <em>{{ pub.journal }}</em>
+                    {%- endif -%}
+                    {%- if pub.year -%}
+                        , {{ pub.year }}
+                    {%- endif -%}.
+
+                    <span class="pub-links">
+                        {% if pub.doi %}
+                        <a href="https://doi.org/{{ pub.doi }}" target="_blank" class="pub-btn">[DOI]</a>
+                        {% endif %}
+
+                        {% if pub.eprint %}
+                        <a href="https://arxiv.org/abs/{{ pub.eprint }}" target="_blank" class="pub-btn">[arXiv]</a>
+                        {% endif %}
+                    </span>
+                </li>
+                {% endfor %}
+            </ul>
+
+        {% endfor %}
+    </main>
+
+    {% include 'footer.tmpl' %}
+</body>
+</html>

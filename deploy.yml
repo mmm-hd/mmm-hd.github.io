@@ -1,0 +1,51 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Trigger deployment when pushing to the main branch
+  workflow_dispatch: # Allows you to trigger the build manually from the Actions tab
+
+permissions:
+  contents: write  # Required for the deployment step to push to gh-pages
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip' # Automatically caches pip dependencies for faster builds
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build Site with Doit
+        run: |
+          # We run 'doit clean' to ensure the CI environment starts from zero
+          # and then 'doit' to execute the specialized builds we configured.
+          doit clean
+          doit
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: . # The root directory where your .html files are generated
+          branch: gh-pages # The branch the site will be deployed to
+          clean: true # Automatically remove old files from gh-pages not present in the current build
+          # Exclude source files from the deployed branch to keep it clean
+          clean-exclude: |
+            md/
+            template/
+            requirements.txt
+            dodo.py
+            build.py
+            .doit.db

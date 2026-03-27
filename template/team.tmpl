@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} &mdash; MMM</title>
+    <link rel="stylesheet" href="{{ PATH_PREFIX }}assets/style.css">
+    <link rel="preload" as="image" href="{{ PATH_PREFIX }}assets/images/mountain_banner.webp" type="image/webp" fetchpriority="high">
+</head>
+<body>
+    {% include 'navbar.tmpl' %}
+
+    <div class="banner">
+        <h1>{{ title }}</h1>
+    </div>
+
+    <main class="container">
+        {{ content }}
+
+        <h2>Members</h2>
+        <div class="team-grid">
+            {% for person in members %}
+            <a href="{{ PATH_PREFIX }}{{ person.url }}" class="team-card">
+                <img src="{{ PATH_PREFIX }}{{ person.image }}" alt="{{ person.name }}">
+                <h3>{{ person.name }}</h3>
+                {% if person.role %}<p class="role">{{ person.role }}</p>{% endif %}
+                {% if person.topic %}<p>Topic: {{ person.topic }}</p>{% endif %}
+            </a>
+            {% endfor %}
+        </div>
+
+        <h2>Affiliate Members</h2>
+        <div class="team-grid">
+            {% for person in affiliates %}
+            <a href="{{ PATH_PREFIX }}{{ person.url }}" class="team-card">
+                <img src="{{ PATH_PREFIX }}{{ person.image }}" alt="{{ person.name }}">
+                <h3>{{ person.name }}</h3>
+                {% if person.role %}<p class="role">{{ person.role }}</p>{% endif %}
+            </a>
+            {% endfor %}
+        </div>
+    </main>
+
+    {% include 'footer.tmpl' %}
+</body>
+</html>

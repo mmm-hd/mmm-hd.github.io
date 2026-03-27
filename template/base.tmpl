@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} &mdash; MMM</title>
+    <link rel="stylesheet" href="{{ PATH_PREFIX }}assets/style.css">
+    <link rel="preload" as="image" href="{{ PATH_PREFIX }}assets/images/mountain_banner.webp" type="image/webp" fetchpriority="high">
+</head>
+<body>
+    {% include 'navbar.tmpl' %}
+
+    <div class="banner">
+        <h1>{{ title }}</h1>
+    </div>
+
+    <main class="container">
+        {{ content }}
+    </main>
+
+    {% include 'footer.tmpl' %}
+</body>
+</html>
