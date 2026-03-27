@@ -370,19 +370,19 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 auto;
-    max-width: var(--container-width); /* Keep footer content aligned with main container */
-    padding: 0 20px;
+    width: 100%;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 /* Ensure the text inside aligns with the container edges */
 .footer-left {
-    display: block;
+    margin-left: calc((100% - var(--container-width)) / 2 + 20px);
     text-align: left;
 }
 
 .footer-right {
-    display: block;
+    margin-right: 40px;
     text-align: right;
 }
 
@@ -569,11 +569,11 @@ footer {
     /* On mobile screens, stack the left and right text vertically */
     .footer-content {
         flex-direction: column;
-        text-align: center;
         gap: 10px; /* Adds a little space between the two lines */
     }
 
     .footer-left, .footer-right {
+        margin: 0; /* Reset margins for center stacking */
         text-align: center; /* Center both strings when stacked on phones */
         width: 100%;
     }
