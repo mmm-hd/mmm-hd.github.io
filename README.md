@@ -46,6 +46,22 @@ bib_file: publications.bib
 [PUBL]
 ```
 
+**Page contents** are related to specific tasks in the group, including:
+
+* Focus and specializations
+* Completed and on-going projects
+* List of publications
+* Current and previous teaching
+* Supervision of student thesis
+* Organisation of current and previous events
+
+**Contact information** includes the following:
+
+* Office room number
+* Office phone number
+* Email form
+* Publication overview, e.g. Orcid (if any)
+* Code sharing platform, e.g. Github (if any)
 
 ### Making changes
 
