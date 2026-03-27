@@ -92,6 +92,7 @@ x^n + y^n = z^n
 
 Requirements: Python 3.9+
 
+First, retrieve or update the repository:
 ```sh
 # Fetch the repository
 git clone https://github.com/mmm-hd/mmm-hd.github.io
@@ -104,6 +105,7 @@ git pull
 pip install -r requirements.txt
 ```
 
+After making your changes in `md/...`, build the HTML files:
 ```sh
 # Build the website
 cd mmm-hd.github.io
@@ -114,7 +116,16 @@ doit
 python -m http.server 8080
 ```
 
-This is for macOS/Linux where Python should be pre-installed.
+Now you can push the changes to the repository:
+```sh
+# Record the changes
+git commit md/ team/
+
+# Push to the repository
+git push
+```
+
+This is for macOS/Linux where Python and git should be pre-installed.
 On Windows, it is easiest to use WSL.
 
 * https://learn.microsoft.com/en-us/windows/wsl/install
