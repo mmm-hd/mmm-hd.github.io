@@ -66,6 +66,14 @@ x^n + y^n = z^n
 
 ## Bikini Bottom
 
+```c
+#include <iostream>
+
+int main() {
+    std::cout << "Hello world!" << std::endl;
+}   
+```
+
 ## The Sound of Music
 
 ## Mallorca
