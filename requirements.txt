@@ -4,3 +4,4 @@ Jinja2>=3.1.0
 bibtexparser>=1.4.0
 doit>=0.36.0
 L2M4M>=1.0.0
+Pygments>=2.18.0
