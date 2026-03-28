@@ -7,6 +7,16 @@ photo: assets/images/ferdinand.webp
 
 ## About
 
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+  printf("%s\n","Hello world!);
+  return EXIT_SUCCESS;
+}
+```
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam suscipit iaculis dolor quis semper. Suspendisse efficitur 
 sed augue nec consectetur. Nulla nec enim tortor. Cras bibendum, felis non dapibus viverra, arcu elit cursus tortor, 
 quis ultricies justo ligula maximus erat. Phasellus ac ligula urna. Nunc et tincidunt tellus, at tincidunt odio. 
