@@ -136,7 +136,7 @@ def get_routing_info(filepath, source_dir):
         'rel_path': rel_path,
         'norm_path': norm_path,
         'filename': os.path.basename(norm_path),
-        'prefix': '../' * depth if depth > 0 else '',
+        'path_prefix': '../' * depth if depth > 0 else '',
         'depth': depth
     }
 
@@ -204,7 +204,7 @@ def process_file(filepath, env, source_dir, output_dir, site_tz=None):
     last_modified = get_last_modified(filepath)
 
     # 2. Process contact information from YAML block - [CONTACT] keyword
-    contact_html = render_contact_block(post.metadata, env, routing['prefix'], post.content)
+    contact_html = render_contact_block(post.metadata, env, routing['path_prefix'], post.content)
 
     # 2. Process publications from BibTeX file - [PUBL] keyword
     pub_html, all_pubs, last_modified = render_publications(
@@ -214,10 +214,16 @@ def process_file(filepath, env, source_dir, output_dir, site_tz=None):
         context['publications'] = all_pubs
 
     # 3. Convert Markdown
-    md = markdown.Markdown(extensions=[
-        'toc', 'extra', 'codehilite', LaTeX2MathMLExtension(),
-        MacroExtension(pub_html=pub_html, contact_html=contact_html)
-    ])
+    extensions = ['toc', 'extra', 'codehilite', LaTeX2MathMLExtension()]
+    use_macros = post.metadata.get('render_macros', True)
+
+    if use_macros:
+        extensions.append(MacroExtension(pub_html=pub_html, contact_html=contact_html))
+    else:
+        # Skip the extension; [PUBL] and [CONTACT] remain as raw text
+        print(f"Info: macros disabled for {routing['filename']}")
+
+    md = markdown.Markdown(extensions=extensions)
     html_content = md.convert(post.content)
 
     # 4. Assemble final template context
@@ -226,7 +232,7 @@ def process_file(filepath, env, source_dir, output_dir, site_tz=None):
         'content': html_content,
         'toc_html': md.toc,
         'pub_html': pub_html,
-        'PATH_PREFIX': routing['prefix'],
+        'PATH_PREFIX': routing['path_prefix'],
         'BUILD_DATE': last_modified.astimezone(site_tz).strftime("%B %d, %Y"),
         'IS_HOME': (routing['filename'] == 'index.md' and routing['depth'] == 0),
         'IS_PROJECTS': 'projects.md' in norm_path,

@@ -77,6 +77,7 @@ Something about my research...
 ## Contact
 [CONTACT]
 ```
+The keywords `[PUBL]` or `[CONTACT]` can be used literally by setting `macros: false` in the header.
 
 > *Note*:  The mail is split into user and domain, so that it cannot be retrieved directly
 from html.

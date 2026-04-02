@@ -11,7 +11,6 @@ orcid: 0009-0000-6097-5975
 social: https://www.linkedin.com/in/ferdinand-vanmaele/
 bibtex: publications.bib
 ---
-
 Something about myself...
 
 ## Research
