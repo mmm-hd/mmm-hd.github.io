@@ -51,8 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. Email Obfuscation (safe from bots)
     const emailElement = document.getElementById("secure-email");
     if (emailElement) {
-        const user   = "petra";
-        const domain = "math.uni-heidelberg.de";
+        const user   = emailElement.getAttribute('data-user')
+        const domain = emailElement.getAttribute('data-domain');
         emailElement.href   = "mailto:" + user + "@" + domain;
     }
 

@@ -6,9 +6,10 @@ photo: assets/images/svetlana.jpg
 bibtex: publications.bib
 ---
 
-## About
-
 ## Research
 
 ## Publications
 [PUBL]
+
+## Contact
+[CONTACT]

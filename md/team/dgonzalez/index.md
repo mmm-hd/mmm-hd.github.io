@@ -6,9 +6,10 @@ photo: assets/images/daniel.webp
 bibtex: publications.bib
 ---
 
-## About
-
 ## Research
 
 ## Publications
 [PUBL]
+
+## Contact
+[CONTACT]

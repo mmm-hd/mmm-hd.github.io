@@ -10,22 +10,27 @@
     {% include 'navbar.tmpl' %}
 
     <div class="profile-layout">
-        <aside class="profile-sidebar">
-            <img src="{{ PATH_PREFIX }}{{ photo | default('assets/images/placeholder.jpeg') }}"
-                 alt="{{ title | default('placeholder') }}" class="profile-photo">
-            <h3 style="margin-top: 0; margin-bottom: 20px;">{{ name }}</h3>
+         <aside class="profile-sidebar">
+             <img src="{{ PATH_PREFIX }}{{ photo | default('assets/images/placeholder.jpeg') }}"
+                  alt="{{ title | default('placeholder') }}" class="profile-photo">
 
-            <div class="toc-toggle" id="toc-toggle">&#9776; Contents</div>
+             <h1 class="sidebar-name">{{ name }}</h1>
 
-            <nav class="toc-nav" id="toc-nav">
-                {{ toc_html }}
-            </nav>
-        </aside>
+             {% if role %}
+             <p class="sidebar-role">{{ role }}</p>
+             {% endif %}
 
-        <main class="profile-content">
-            {{ content }}
-        </main>
-    </div>
+             <div class="toc-toggle" id="toc-toggle">&#9776; Contents</div>
+
+             <nav class="toc-nav" id="toc-nav">
+                 {{ toc_html }}
+             </nav>
+         </aside>
+
+         <main class="profile-content">
+             {{ content }}
+         </main>
+     </div>
 
     {% include 'footer.tmpl' %}
 </body>

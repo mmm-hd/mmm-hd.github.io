@@ -5,12 +5,13 @@ role: PhD Student
 photo: assets/images/ferdinand.webp
 office: Mathematikon, Office 4/229
 phone: +49 6221 5414 839
-github:
-orcid:
+email: info@fvanmaele.de
+github: fvanmaele
+orcid: 0009-0000-6097-5975
+scholar:
+social:
 bibtex: publications.bib
 ---
-
-## About
 
 ```c
 #include <stdio.h>
@@ -24,6 +25,8 @@ int main(void) {
 
 ## Research
 
-
 ## Publications
 [PUBL]
+
+## Contact
+[CONTACT]

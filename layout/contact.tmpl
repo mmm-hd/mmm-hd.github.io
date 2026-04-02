@@ -1,0 +1,50 @@
+<div class="contact-meta">
+    {% if email %}
+    <div class="contact-item">
+        <img src="{{ PATH_PREFIX }}assets/icons/mail.svg" class="icon" width="16" alt="Email">
+        <a href="#" id="secure-email"
+           data-user="{{ email.split('@')[0] }}"
+           data-domain="{{ email.split('@')[1] }}">
+           {{ email | replace('@', ' [at] ') | replace('.', ' [dot] ') }}
+        </a>
+    </div>
+    {% endif %}
+
+    {% if office %}
+    <div class="contact-item">
+        <img src="{{ PATH_PREFIX }}assets/icons/map-pin.svg" class="icon" width="16" alt="Office">
+        {{ office }}
+    </div>
+    {% endif %}
+
+    {% if phone %}
+    <div class="contact-item">
+        <img src="{{ PATH_PREFIX }}assets/icons/phone.svg" class="icon" width="16" alt="Phone">
+        <a href="tel:{{ phone | replace(' ', '') }}">{{ phone }}</a>
+    </div>
+    {% endif %}
+
+    {% if github %}
+    <div class="contact-item">
+        <img src="{{ PATH_PREFIX }}assets/icons/github.svg" class="icon" width="16" alt="GitHub">
+        <a href="https://github.com/{{ github }}"
+           target="_blank" rel="noopener noreferrer">@{{ github }}</a>
+    </div>
+    {% endif %}
+
+    {% if orcid %}
+    <div class="contact-item">
+        <img src="{{ PATH_PREFIX }}assets/icons/orcid.svg" class="icon" width="16" alt="ORCID">
+        <a href="https://orcid.org/{{ orcid }}"
+           target="_blank" rel="noopener noreferrer">{{ orcid }}</a>
+    </div>
+    {% endif %}
+
+    {% if scholar %}
+    <div class="contact-item">
+        <img src="{{ PATH_PREFIX }}assets/icons/scholar.svg" class="icon" width="16" alt="Google Scholar">
+        <a href="https://scholar.google.com/citations?user={{ scholar }}"
+           target="_blank" rel="noopener noreferrer">Google Scholar</a>
+    </div>
+    {% endif %}
+</div>

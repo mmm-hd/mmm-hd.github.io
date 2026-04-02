@@ -13,7 +13,7 @@ LAYOUT_DIR = get_var('layout', 'layout')
 SITE_TZ = ZoneInfo("Europe/Berlin")
 
 # Templates that affect the entire website
-COMMON_TEMPLATES = ['navbar.tmpl', 'footer.tmpl']
+COMMON_TEMPLATES = ['navbar.tmpl', 'footer.tmpl', 'contact.tmpl']
 
 def task_html():
     """Compile Markdown files to HTML."""

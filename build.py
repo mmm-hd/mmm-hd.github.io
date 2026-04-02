@@ -19,35 +19,48 @@ from markdown.util import AtomicString
 import xml.etree.ElementTree as etree
 
 # Block processor for usage with extensions such as MathML
-class PublBlockProcessor(BlockProcessor):
-    def __init__(self, parser, pub_html):
+import re
+from markdown.blockprocessors import BlockProcessor
+import xml.etree.ElementTree as etree
+
+class MacroBlockProcessor(BlockProcessor):
+    """Generic processor to replace a [TAG] with pre-rendered HTML."""
+    def __init__(self, parser, tag, html):
         super().__init__(parser)
-        self.pub_html = pub_html
+        self.tag = tag
+        self.html = html
 
     def test(self, parent, block):
-        return block.strip() == '[PUBL]'
+        return block.strip() == self.tag
 
     def run(self, parent, blocks):
-        blocks.pop(0)
-        # Create an element instance and append it to parent
-        el = etree.SubElement(parent, 'div')
-
-        # Stash the publications HTML
-        stash_token = self.parser.md.htmlStash.store(self.pub_html)
-
-        # Use AtomicString to tell other inline processors (and LaTeX)
-        # to completely ignore this text node and its control bytes
-        el.text = AtomicString(stash_token)
+        blocks.pop(0) # Remove the [TAG] line
+        if self.html:
+            # We wrap the HTML in a div to ensure it's valid XML for the parser
+            div = etree.SubElement(parent, 'div')
+            # Use a placeholder that we will replace later or inject as raw
+            # In python-markdown, the easiest way for raw HTML in blocks:
+            placeholder = self.parser.md.htmlStash.store(self.html)
+            div.text = placeholder
 
 
-class PublExtension(Extension):
-    def __init__(self, pub_html="", **kwargs):
-        self.config = {'pub_html': [pub_html, 'The raw HTML of the publication list to inject']}
+class MacroExtension(markdown.Extension):
+    def __init__(self, **kwargs):
+        self.config = {
+            'pub_html': ['', 'HTML for publications'],
+            'contact_html': ['', 'HTML for contact info']
+        }
         super().__init__(**kwargs)
 
     def extendMarkdown(self, md):
-        # Register before the standard Paragraph processor
-        md.parser.blockprocessors.register(PublBlockProcessor(md.parser, self.config['pub_html'][0]), 'publ', 175)
+        md.parser.blockprocessors.register(
+            MacroBlockProcessor(md.parser, '[PUBL]', self.getConfig('pub_html')),
+            'publ_macro', 175
+        )
+        md.parser.blockprocessors.register(
+            MacroBlockProcessor(md.parser, '[CONTACT]', self.getConfig('contact_html')),
+            'contact_macro', 176
+        )
 
 
 def setup_environment(template_dir):
@@ -127,6 +140,21 @@ def process_file(filepath, env, source_dir, output_dir, site_tz=None):
     post    = frontmatter.load(filepath)
     context = post.metadata.copy()
 
+    # Render contact HTML from template
+    # TODO: do this only for team websites?
+    contact_template = env.get_template('contact.tmpl')
+    contact_html = contact_template.render(
+        role=post.metadata.get('role'),
+        email=post.metadata.get('email'),
+        office=post.metadata.get('office'),
+        phone=post.metadata.get('phone'),
+        orcid=post.metadata.get('orcid'),
+        github=post.metadata.get('github'),
+        scholar=post.metadata.get('scholar'),
+        social=post.metadata.get('social'),
+        PATH_PREFIX=prefix
+    )
+
     # 2. Parse BibTeX files
     all_pubs = []
     bib_filename  = post.get('bibtex')
@@ -173,7 +201,8 @@ def process_file(filepath, env, source_dir, output_dir, site_tz=None):
 
     # Convert Markdown, injecting the publication list
     md = markdown.Markdown(extensions=[
-        'toc','extra','codehilite',LaTeX2MathMLExtension(),PublExtension(pub_html=pub_html)
+        'toc','extra','codehilite',LaTeX2MathMLExtension(),
+        MacroExtension(pub_html=pub_html, contact_html=contact_html)
     ])
     html_content = md.convert(post.content)
     toc_html     = md.toc

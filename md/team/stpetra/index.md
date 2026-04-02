@@ -3,11 +3,13 @@ name: Prof. Dr. Stefania Petra
 layout: profile
 role: Group Leader
 photo: assets/images/stefania.webp
-bibtex: publcations.bib
+bibtex: publications.bib
 ---
-
-## About
 
 ## Research
 
 ## Publications
+[PUBL]
+
+## Contact
+[CONTACT]

@@ -6,9 +6,10 @@ photo: assets/images/michael.jpg
 bibtex: publications.bib
 ---
 
-## About
-
 ## Research
 
 ## Publications
 [PUBL]
+
+## Contact
+[CONTACT]

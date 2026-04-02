@@ -6,9 +6,10 @@ photo: assets/images/jonathan.webp
 bibtex: publications.bib
 ---
 
-## About
-
 ## Research
 
 ## Publications
 [PUBL]
+
+## Contact
+[CONTACT]

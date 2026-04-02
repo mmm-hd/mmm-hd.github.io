@@ -6,9 +6,10 @@ photo: assets/images/yara.webp
 bibtex: publications.bib
 ---
 
-## About
-
 ## Research
 
 ## Publications
 [PUBL]
+
+## Contact
+[CONTACT]

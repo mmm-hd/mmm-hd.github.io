@@ -27,5 +27,6 @@ University of Heidelberg
 ## Contact
 
 <p class="email-link">
-    &#9993; Email: <a href="#" id="secure-email">petra [at] math [dot] uni-heidelberg [dot] de</a>
+    &#9993; Email: <a href="#" id="secure-email" 
+    data-user="petra" data-domain="math.uni-heidelberg.de">petra [at] math [dot] uni-heidelberg [dot] de</a>
 </p>
