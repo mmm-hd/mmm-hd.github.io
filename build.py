@@ -8,7 +8,6 @@ import subprocess
 
 from l2m4m import LaTeX2MathMLExtension
 from datetime import datetime, timezone
-from zoneinfo import ZoneInfo
 from bibtexparser.bparser import BibTexParser
 from bibtexparser.customization import convert_to_unicode
 from jinja2 import Environment, FileSystemLoader
@@ -51,9 +50,9 @@ class PublExtension(Extension):
         md.parser.blockprocessors.register(PublBlockProcessor(md.parser, self.config['pub_html'][0]), 'publ', 175)
 
 
-def setup_environment():
+def setup_environment(template_dir):
     """Initialize and return the Jinja environment."""
-    return Environment(loader=FileSystemLoader('template'),
+    return Environment(loader=FileSystemLoader(template_dir),
                        trim_blocks=True,    # Removes the first newline after a block
                        lstrip_blocks=True   # Strips tabs and spaces from the start of a line to a block
     )
@@ -114,7 +113,7 @@ def get_last_modified(filepath):
     return datetime.fromtimestamp(file_timestamp, tz=timezone.utc)
 
 
-def process_file(filepath, env, source_dir, output_dir, target_tz=None):
+def process_file(filepath, env, source_dir, output_dir, site_tz=None):
     # Calculate path relative to the source directory
     rel_path = os.path.relpath(filepath, source_dir)
     normalized_rel_path = rel_path.replace(os.sep, '/')
@@ -123,9 +122,6 @@ def process_file(filepath, env, source_dir, output_dir, target_tz=None):
     # Calculate path prefix for assets based on directory depth
     depth = normalized_rel_path.count('/')
     prefix = '../' * depth if depth > 0 else ''
-
-    # Define canonical site timezone
-    site_tz = ZoneInfo("Europe/Berlin")
 
     # 1. Base context starts with values in the YAML frontmatter
     post    = frontmatter.load(filepath)
@@ -223,7 +219,7 @@ def process_file(filepath, env, source_dir, output_dir, target_tz=None):
 
 
 if __name__ == "__main__":
-    env = setup_environment()
+    env = setup_environment('layout')
     files_to_build = sys.argv[1:]
     source_dir = 'md'
     output_dir = '.'

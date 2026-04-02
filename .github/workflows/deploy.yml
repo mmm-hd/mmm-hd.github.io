@@ -46,7 +46,7 @@ jobs:
           # Exclude source files from the deployed branch to keep it clean
           clean-exclude: |
             md/
-            template/
+            layout/
             requirements.txt
             dodo.py
             build.py

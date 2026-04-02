@@ -2,18 +2,23 @@ import os
 import frontmatter
 from build import setup_environment, process_file
 from doit import get_var
-
-# Templates that affect the entire website
-COMMON_TEMPLATES = ['template/navbar.tmpl', 'template/footer.tmpl']
+from zoneinfo import ZoneInfo
 
 # get_var(key, default_value)
 SOURCE_DIR = get_var('source', 'md')
 OUTPUT_DIR = get_var('output', '.')
+LAYOUT_DIR = get_var('layout', 'layout')
+
+# Define canonical site timezone
+SITE_TZ = ZoneInfo("Europe/Berlin")
+
+# Templates that affect the entire website
+COMMON_TEMPLATES = ['navbar.tmpl', 'footer.tmpl']
 
 def task_html():
     """Compile Markdown files to HTML."""
 
-    env = setup_environment()
+    env = setup_environment(LAYOUT_DIR)
 
     for root, dirs, files in os.walk(SOURCE_DIR):
         for file in files:
@@ -37,20 +42,25 @@ def task_html():
                     bib_path  = None
 
                 # 1. Track the Markdown file as input
-                deps = [md_path] + COMMON_TEMPLATES
+                deps = [md_path]
 
-                # 2. Track the used layout template
-                layout_tmpl_path = os.path.join('template', f"{layout_choice}.tmpl")
+                # 2. Track the common templates (header, footer)
+                for common in COMMON_TEMPLATES:
+                    layout_tmpl_path = os.path.join(LAYOUT_DIR, common)
+                    deps.append(layout_tmpl_path)
+
+                # 3. Track the used layout template
+                layout_tmpl_path = os.path.join(LAYOUT_DIR, f"{layout_choice}.tmpl")
                 if layout_tmpl_path not in deps and os.path.exists(layout_tmpl_path):
                     deps.append(layout_tmpl_path)
 
-                # 3. Track the BibTeX file if one is specified
+                # 4. Track the BibTeX file if one is specified
                 if bib_path and os.path.exists(bib_path):
                     deps.append(bib_path)
 
                 yield {
                     'name': md_path,
-                    'actions': [(process_file, [md_path, env, SOURCE_DIR, OUTPUT_DIR])],
+                    'actions': [(process_file, [md_path, env, SOURCE_DIR, OUTPUT_DIR, SITE_TZ])],
                     'file_dep': deps,
                     'targets': [html_path],
                     'clean': True,
