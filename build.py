@@ -126,121 +126,129 @@ def get_last_modified(filepath):
     return datetime.fromtimestamp(file_timestamp, tz=timezone.utc)
 
 
-def process_file(filepath, env, source_dir, output_dir, site_tz=None):
-    # Calculate path relative to the source directory
+def get_routing_info(filepath, source_dir):
+    """Calculates all path-related variables for a given file."""
     rel_path = os.path.relpath(filepath, source_dir)
-    normalized_rel_path = rel_path.replace(os.sep, '/')
-    filename = os.path.basename(normalized_rel_path)
+    norm_path = rel_path.replace(os.sep, '/')
+    depth = norm_path.count('/')
 
-    # Calculate path prefix for assets based on directory depth
-    depth = normalized_rel_path.count('/')
-    prefix = '../' * depth if depth > 0 else ''
+    return {
+        'rel_path': rel_path,
+        'norm_path': norm_path,
+        'filename': os.path.basename(norm_path),
+        'prefix': '../' * depth if depth > 0 else '',
+        'depth': depth
+    }
 
-    # 1. Base context starts with values in the YAML frontmatter
-    post    = frontmatter.load(filepath)
-    context = post.metadata.copy()
 
-    # Render contact HTML from template
-    # TODO: do this only for team websites?
+def render_contact_block(metadata, env, prefix, content):
+    """Renders the contact HTML only if the macro is used."""
+    if '[CONTACT]' not in content:
+        return ""
+
     contact_template = env.get_template('contact.tmpl')
-    contact_html = contact_template.render(
-        role=post.metadata.get('role'),
-        email=post.metadata.get('email'),
-        office=post.metadata.get('office'),
-        phone=post.metadata.get('phone'),
-        orcid=post.metadata.get('orcid'),
-        github=post.metadata.get('github'),
-        scholar=post.metadata.get('scholar'),
-        social=post.metadata.get('social'),
+    return contact_template.render(
+        role=metadata.get('role'),
+        email=metadata.get('email'),
+        office=metadata.get('office'),
+        phone=metadata.get('phone'),
+        orcid=metadata.get('orcid'),
+        github=metadata.get('github'),
+        scholar=metadata.get('scholar'),
+        social=metadata.get('social'),
         PATH_PREFIX=prefix
     )
 
-    # 2. Parse BibTeX files
-    all_pubs = []
-    bib_filename  = post.metadata.get('bibtex')
-    last_modified = get_last_modified(filepath)
-    pub_html = ""
 
-    if bib_filename:
-        try:
-            # Use path relative to the markdown file
-            md_dir = os.path.dirname(filepath)
-            bib_path = os.path.normpath(os.path.join(md_dir, bib_filename))
+def render_publications(metadata, filepath, env, base_last_modified, content):
+    """Handles BibTeX parsing and handles missing files/tags."""
+    bib_filename = metadata.get('bibtex')
 
-            # If a bib file exists, get its date and keep the most recent one
-            bib_last_modified = get_last_modified(bib_path)
-            last_modified = max(bib_last_modified, last_modified)
-
-            all_pubs = parse_bibtex(bib_path)
-            context['publications'] = all_pubs
-
-            # Pre-render the publication list
-            pub_template = env.get_template('pub_list.tmpl')
-            pub_html = pub_template.render(publications=all_pubs)
-
-        except FileNotFoundError:
-            print(f"Warning: BibTeX file '{bib_filename}' not found for {filepath}")
-
-            # Inject a red error box for a missing file
-            pub_html = f"""
-            <div style="padding: 1rem; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 4px;">
-                <strong>Error:</strong> The specified BibTeX file <code>{bib_filename}</code> could not be found at the resolved path.
+    if not bib_filename:
+        if '[PUBL]' in content:
+            print(f"Warning: '[PUBL]' tag found in {filepath}, but no 'bibtex' specified.")
+            return """
+            <div style="padding: 1rem; background-color: #ffeeba; color: #856404; border: 1px solid #ffeeba; border-radius: 4px;">
+                <strong>Warning:</strong> The <code>[PUBL]</code> keyword was used, but no <code>bibtex</code> file was defined.
             </div>
-            """
+            """, [], base_last_modified
+        return "", [], base_last_modified
 
-    elif '[PUBL]' in post.content:
-        # Warn the user and inject a placeholder
-        print(f"Warning: '[PUBL]' tag found in {filepath}, but no 'bib_file' specified in frontmatter.")
+    try:
+        md_dir   = os.path.dirname(filepath)
+        bib_path = os.path.normpath(os.path.join(md_dir, bib_filename))
 
-        # Inject a yellow warning box for missing metadata
-        pub_html = """
-        <div style="padding: 1rem; background-color: #ffeeba; color: #856404; border: 1px solid #ffeeba; border-radius: 4px;">
-            <strong>Warning:</strong> The <code>[PUBL]</code> keyword was used, but no <code>bib_file</code> was defined in the page frontmatter.
+        # Update last modified date based on the BibTeX file
+        bib_last_modified = get_last_modified(bib_path)
+        updated_last_modified = max(bib_last_modified, base_last_modified)
+
+        all_pubs = parse_bibtex(bib_path)
+        pub_template = env.get_template('pub_list.tmpl')
+
+        return pub_template.render(publications=all_pubs), all_pubs, updated_last_modified
+
+    except FileNotFoundError:
+        print(f"Warning: BibTeX file '{bib_filename}' not found for {filepath}")
+        return f"""
+        <div style="padding: 1rem; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 4px;">
+            <strong>Error:</strong> The specified BibTeX file <code>{bib_filename}</code> could not be found.
         </div>
-        """
+        """, [], base_last_modified
 
-    # Convert Markdown, injecting the publication list
+
+def process_file(filepath, env, source_dir, output_dir, site_tz=None):
+    # 1. Routing & setup
+    routing       = get_routing_info(filepath, source_dir)
+    post          = frontmatter.load(filepath)
+    context       = post.metadata.copy()
+    last_modified = get_last_modified(filepath)
+
+    # 2. Process contact information from YAML block - [CONTACT] keyword
+    contact_html = render_contact_block(post.metadata, env, routing['prefix'], post.content)
+
+    # 2. Process publications from BibTeX file - [PUBL] keyword
+    pub_html, all_pubs, last_modified = render_publications(
+        post.metadata, filepath, env, last_modified, post.content
+    )
+    if all_pubs:
+        context['publications'] = all_pubs
+
+    # 3. Convert Markdown
     md = markdown.Markdown(extensions=[
-        'toc','extra','codehilite',LaTeX2MathMLExtension(),
+        'toc', 'extra', 'codehilite', LaTeX2MathMLExtension(),
         MacroExtension(pub_html=pub_html, contact_html=contact_html)
     ])
     html_content = md.convert(post.content)
-    toc_html     = md.toc
 
-    # 3. Inject calculated routing variables
+    # 4. Assemble final template context
+    norm_path = routing['norm_path']
     context.update({
         'content': html_content,
-        'toc_html': toc_html,
+        'toc_html': md.toc,
         'pub_html': pub_html,
-        'PATH_PREFIX': prefix,
+        'PATH_PREFIX': routing['prefix'],
         'BUILD_DATE': last_modified.astimezone(site_tz).strftime("%B %d, %Y"),
-        'IS_HOME': (filename == 'index.md' and depth == 0),
-        'IS_PROJECTS': 'projects.md' in normalized_rel_path,
-        'IS_TEACHING': 'teaching.md' in normalized_rel_path,
-        'IS_TEAM': 'team.md' in normalized_rel_path or '/team/' in normalized_rel_path,
-        'IS_PUBLICATIONS': 'publications.md' in normalized_rel_path,
+        'IS_HOME': (routing['filename'] == 'index.md' and routing['depth'] == 0),
+        'IS_PROJECTS': 'projects.md' in norm_path,
+        'IS_TEACHING': 'teaching.md' in norm_path,
+        'IS_TEAM': 'team.md' in norm_path or 'team/' in norm_path,
+        'IS_PUBLICATIONS': 'publications.md' in norm_path,
     })
 
-    # 4. Dynamically load the requested template
+    # 5. Render template
     layout_choice = post.metadata.get('layout', 'base')
-
     try:
         template = env.get_template(f"{layout_choice}.tmpl")
     except Exception:
         print(f"Warning: Template '{layout_choice}.tmpl' not found. Falling back to 'base.tmpl'.")
         template = env.get_template("base.tmpl")
 
-    # 5. Render the template
     final_html = template.render(**context)
 
-    # Save the output
-    output_rel_path = rel_path.replace('.md', '.html')
-    output_path = os.path.join(output_dir, output_rel_path)
-
-    # Ensure the target directory structure exists before writing
+    # 6. Save output as html
+    output_path = os.path.join(output_dir, routing['rel_path'].replace('.md', '.html'))
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
-    # Print the HTML
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(final_html)
 

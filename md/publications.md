@@ -1,5 +1,5 @@
 ---
 title: Publications
 layout: publications
-bib_file: publications.bib
+bibtex: publications.bib
 ---
