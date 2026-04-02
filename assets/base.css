@@ -26,7 +26,6 @@ body {
 
 h1 {
     font-weight: 600;
-    text-align: center;
 }
 
 h2 {
@@ -306,10 +305,67 @@ header .search-icon {
 
 /* Sidebar Image & Nav styling remains unchanged */
 .profile-photo {
-    width: 100%;
+    max-width: 100%;           /* Prevents it from breaking out of the sidebar */
+    width: auto;               /* Allows width to shrink if max-height is reached */
+    max-height: 250px;         /* Set your desired maximum height here */
+    height: auto;              /* Preserves the exact aspect ratio */
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     margin-bottom: 20px;
+    display: block;
+}
+
+/* Styling for contact information */
+.contact-meta {
+    display: grid;
+    gap: 0.1rem;          /* Vertical spacing between items */
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;          /* Space between icon and text */
+}
+
+/* Ensure links inside the contact items inherit the new color */
+.contact-item a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.contact-item a:hover {
+    color: #000;          /* Slightly darker on hover for usability */
+    text-decoration: underline;
+}
+
+/* Ensure the SVG icons align properly and use the text color */
+.contact-item .icon {
+    flex-shrink: 0;
+    stroke: currentColor; /* If using inline SVGs */
+}
+
+/* Styling for the Name in the sidebar */
+.sidebar-name {
+    font-size: 1.6rem;
+    margin: 0.5rem 0 0.4rem 0; /* Minimal bottom margin to keep role close */
+    line-height: 1.2;
+    color: #222;
+    font-weight: 600;
+}
+
+/* Styling for the Role in the sidebar */
+.sidebar-role {
+    font-size: 0.9rem;          /* Distinctly smaller than body text */
+    color: #888;                /* Lighter gray to push it into the background */
+    margin: 0 0 1.5rem 0;       /* Increased space below the identity block */
+    font-weight: 400;
+
+    /* Option B: Alternative modern look (comment out A and use this) */
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 /* --- Table of Contents --- */
