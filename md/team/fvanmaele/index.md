@@ -12,17 +12,10 @@ social: https://www.linkedin.com/in/ferdinand-vanmaele/
 bibtex: publications.bib
 ---
 
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-int main(void) {
-  printf("%s\n","Hello world!);
-  return EXIT_SUCCESS;
-}
-```
+Something about myself...
 
 ## Research
+Something about my research...
 
 ## Publications
 [PUBL]

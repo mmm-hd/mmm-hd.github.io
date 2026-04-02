@@ -66,8 +66,10 @@ photo: assets/images/jane.jpg
 bibtex: publications.bib
 office: Land of Oz
 ---
+Something about myself...
 
 ## Research
+Something about my research...
 
 ## Publications
 [PUBL]
