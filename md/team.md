@@ -11,6 +11,10 @@ members:
     role: Statistical Advisor, Senior Researcher
     image: assets/images/roman-thumb.webp
     url: team/rschefzik/index.html
+  - name: Jonathan Schwarz
+    role: Statistical Advisor, Postdoc Researcher
+    image: assets/images/jonathan-thumb.webp
+    url: team/jschwarz/index.html
   - name: Yara Elshiaty
     role: PhD Student
     topic: ""

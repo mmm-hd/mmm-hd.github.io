@@ -1,5 +1,6 @@
 .DS_Store
 .idea/
 .vscode/
-.doit.db
+.doit.db.db
 __pycache__
+*.html
