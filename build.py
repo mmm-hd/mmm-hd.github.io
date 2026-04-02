@@ -4,9 +4,11 @@ import sys
 import markdown
 import frontmatter
 import bibtexparser
+import subprocess
 
 from l2m4m import LaTeX2MathMLExtension
-from datetime import datetime
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 from bibtexparser.bparser import BibTexParser
 from bibtexparser.customization import convert_to_unicode
 from jinja2 import Environment, FileSystemLoader
@@ -43,14 +45,46 @@ def parse_bibtex(bib_filename):
         return all_pubs
 
 
-def process_file(filepath, env, source_dir, output_dir):
+def get_last_modified(filepath):
+    """
+    Fetch the last git commit date as seconds expired since epoch (UTC.)
+    Falls back to the OS-level file modification time if untracked.
+
+    Args:
+        filepath (str): Path to the file.
+        target_tz (tzinfo, optional): The target timezone. Defaults to system local time.
+    """
+    try:
+        # %s returns the UNIX timestamp (seconds since epoch in UTC)
+        result = subprocess.run(
+            ['git', 'log', '-1', '--format=%cd', '--date=format:%s', '--', filepath],
+            capture_output=True, text=True, check=True
+        )
+        git_timestamp = result.stdout.strip()
+
+        if git_timestamp:
+            return datetime.fromtimestamp(int(git_timestamp), tz=timezone.utc)
+        else:
+            # Command succeeded, but no history exists for this file
+            print(f"Warning: '{filepath}' is not tracked by Git. Using OS modified time.")
+
+    except Exception as e:
+        # Command failed completely (e.g., Git not installed, or not a repo)
+        print(f"Warning: Git check failed for '{filepath}' ({e}). Using OS modified time.")
+
+    # Fallback: Read the file's last-modified date directly from the filesystem
+    file_timestamp = os.path.getmtime(filepath)
+    return datetime.fromtimestamp(file_timestamp, tz=timezone.utc)
+
+
+def process_file(filepath, env, source_dir, output_dir, target_tz=None):
     # Calculate path relative to the 'md' directory
-    rel_path        = os.path.relpath(filepath, source_dir)
-    normalized_path = rel_path.replace(os.sep, '/')
-    filename        = os.path.basename(normalized_path)
+    rel_path = os.path.relpath(filepath, source_dir)
+    normalized_rel_path = rel_path.replace(os.sep, '/')
+    filename = os.path.basename(normalized_rel_path)
 
     # Calculate path prefix for assets based on directory depth
-    depth = normalized_path.count('/')
+    depth = normalized_rel_path.count('/')
     prefix = '../' * depth if depth > 0 else ''
 
     # Parse YAML frontmatter and markdown
@@ -59,32 +93,40 @@ def process_file(filepath, env, source_dir, output_dir):
     html_content    = md.convert(post.content)
     toc_html        = md.toc
 
+    # Define canonical site timezone
+    site_tz = ZoneInfo("Europe/Berlin")
+
     # 1. Base context starts with values in the YAML frontmatter
     context = post.metadata.copy()
 
-    # 2. Inject calculated routing variables
-    context.update({
-        'content': html_content,
-        'toc_html': md.toc,
-        'PATH_PREFIX': prefix,
-        'IS_HOME': (filename == 'index.md' and depth == 0),
-        'IS_PROJECTS': 'projects.md' in normalized_path,
-        'IS_TEACHING': 'teaching.md' in normalized_path,
-        'IS_TEAM': 'team.md' in normalized_path or '/team/' in normalized_path,
-        'IS_PUBLICATIONS': 'publications.md' in normalized_path,
-        'BUILD_DATE': datetime.now().strftime("%B %d, %Y"), # e.g., "March 26, 2026"
-    })
-
-    # 3. Parse BibTeX files
+    # 2. Parse BibTeX files
     all_pubs = []
     bib_filename = post.get('bib_file')
+    last_modified = get_last_modified(filepath)
 
     if bib_filename:
         try:
+            # If a bib file exists, get its date and keep the most recent one
+            bib_last_modified = get_last_modified(bib_filename)
+            last_modified = max(bib_last_modified, last_modified)
+
             all_pubs = parse_bibtex(bib_filename)
             context['publications'] = all_pubs
         except FileNotFoundError:
             print(f"Warning: BibTeX file '{bib_filename}' not found for {filepath}")
+
+    # 3. Inject calculated routing variables
+    context.update({
+        'content': html_content,
+        'toc_html': md.toc,
+        'PATH_PREFIX': prefix,
+        'BUILD_DATE': last_modified.astimezone(site_tz).strftime("%B %d, %Y"),
+        'IS_HOME': (filename == 'index.md' and depth == 0),
+        'IS_PROJECTS': 'projects.md' in normalized_rel_path,
+        'IS_TEACHING': 'teaching.md' in normalized_rel_path,
+        'IS_TEAM': 'team.md' in normalized_rel_path or '/team/' in normalized_rel_path,
+        'IS_PUBLICATIONS': 'publications.md' in normalized_rel_path,
+    })
 
     # 4. Dynamically load the requested template
     layout_choice = post.get('layout', 'base')
