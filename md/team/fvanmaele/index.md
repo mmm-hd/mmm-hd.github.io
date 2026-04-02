@@ -8,8 +8,7 @@ phone: +49 6221 5414 839
 email: info@fvanmaele.de
 github: fvanmaele
 orcid: 0009-0000-6097-5975
-scholar:
-social:
+social: https://www.linkedin.com/in/ferdinand-vanmaele/
 bibtex: publications.bib
 ---
 

@@ -157,7 +157,7 @@ def process_file(filepath, env, source_dir, output_dir, site_tz=None):
 
     # 2. Parse BibTeX files
     all_pubs = []
-    bib_filename  = post.get('bibtex')
+    bib_filename  = post.metadata.get('bibtex')
     last_modified = get_last_modified(filepath)
     pub_html = ""
 
@@ -222,7 +222,7 @@ def process_file(filepath, env, source_dir, output_dir, site_tz=None):
     })
 
     # 4. Dynamically load the requested template
-    layout_choice = post.get('layout', 'base')
+    layout_choice = post.metadata.get('layout', 'base')
 
     try:
         template = env.get_template(f"{layout_choice}.tmpl")

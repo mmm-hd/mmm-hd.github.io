@@ -47,4 +47,13 @@
            target="_blank" rel="noopener noreferrer">Google Scholar</a>
     </div>
     {% endif %}
+
+    {% if social %}
+    <div class="contact-item">
+        <img src="{{ PATH_PREFIX }}assets/icons/globe.svg" class="icon" width="16" alt="Social Profile">
+        <a href="{{ social }}" target="_blank" rel="noopener noreferrer">
+            {{ social | replace('https://', '') | replace('http://', '') | replace('www.', '') }}
+        </a>
+    </div>
+    {% endif %}
 </div>
