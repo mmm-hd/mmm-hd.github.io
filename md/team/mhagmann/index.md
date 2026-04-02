@@ -1,7 +1,7 @@
 ---
 name: Dr. Michael Hagmann
 layout: profile
-role:
+role: Team Member
 photo: assets/images/michael.jpg
 bibtex: publications.bib
 ---

@@ -1,7 +1,7 @@
 ---
 name: Dr. Svetlana Hetjens
 layout: profile
-role: 
+role: Team Member
 photo: assets/images/svetlana.jpg
 bibtex: publications.bib
 ---

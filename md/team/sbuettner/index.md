@@ -1,7 +1,7 @@
 ---
 name: Sylvia Buettner
 layout: profile
-role:
+role: Team Member
 photo: assets/images/sylvia.jpg
 bibtex: publications.bib
 ---
