@@ -1,27 +1,7 @@
-<section class="profile-publications">
-    <ul class="publication-list">
-        {% for pub in publications %}
-        <li>
-            <span class="authors">{{ pub.author }}</span>
-            {%- if pub.journal -%}
-                , <em>{{ pub.journal }}</em>
-            {%- endif -%}
-            {%- if pub.year -%}
-                , {{ pub.year }}
-            {%- endif -%}.
-            <strong><span class="title">{{ pub.title }}</span></strong>
+{% from 'macros.tmpl' import render_pub_item %}
 
-            <span class="pub-links">
-                {% if pub.doi %}
-                <a href="https://doi.org/{{ pub.doi }}" target="_blank" rel="noopener noreferrer"
-                   class="pub-btn" aria-label="DOI link for {{ pub.title }}">[DOI]</a>
-                {% endif %}
-                {% if pub.eprint %}
-                <a href="https://arxiv.org/abs/{{ pub.eprint }}" target="_blank" rel="noopener noreferrer"
-                   class="pub-btn" aria-label="arXiv link for {{ pub.title }}">[arXiv]</a>
-                {% endif %}
-            </span>
-        </li>
-        {% endfor %}
-    </ul>
-</section>
+<ul class="publication-list">
+    {% for pub in publications %}
+        {{ render_pub_item(pub) }}
+    {% endfor %}
+</ul>

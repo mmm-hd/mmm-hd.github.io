@@ -14,39 +14,19 @@
         <h1>{{ title }}</h1>
     </div>
 
+    {% from 'macros.tmpl' import render_pub_item %}
+
     <main class="container">
         {{ content }}
 
         {% for year, year_pubs in publications|groupby('year')|reverse %}
-
             <h2 class="year-heading" id="year-{{ year }}">{{ year }}</h2>
 
             <ul class="publication-list">
                 {% for pub in year_pubs %}
-                <li style="margin-bottom: 20px;">
-                    <span class="authors">{{ pub.author }}</span>
-                    <strong><span class="title">{{ pub.title }}</span></strong>
-
-                    {%- if pub.journal -%}
-                        , <em>{{ pub.journal }}</em>
-                    {%- endif -%}
-                    {%- if pub.year -%}
-                        , {{ pub.year }}
-                    {%- endif -%}.
-
-                    <span class="pub-links">
-                        {% if pub.doi %}
-                        <a href="https://doi.org/{{ pub.doi }}" target="_blank" class="pub-btn">[DOI]</a>
-                        {% endif %}
-
-                        {% if pub.eprint %}
-                        <a href="https://arxiv.org/abs/{{ pub.eprint }}" target="_blank" class="pub-btn">[arXiv]</a>
-                        {% endif %}
-                    </span>
-                </li>
+                    {{ render_pub_item(pub) }}
                 {% endfor %}
             </ul>
-
         {% endfor %}
     </main>
 
