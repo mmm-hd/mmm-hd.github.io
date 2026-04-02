@@ -1,9 +1,9 @@
 ---
-title: Daniel Gonzalez
+name: Daniel Gonzalez
 layout: profile
 role: PhD Student
 photo: assets/images/daniel.webp
-publications: publications.bib
+bibtex: publications.bib
 ---
 
 ## About

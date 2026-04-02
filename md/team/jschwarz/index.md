@@ -1,9 +1,9 @@
 ---
-title: Jonathan Schwarz
+name: Jonathan Schwarz
 layout: profile
 role: Statistical Advisor, Researcher
 photo: assets/images/jonathan.webp
-publications: publications.bib
+bibtex: publications.bib
 ---
 
 ## About

@@ -129,7 +129,7 @@ def process_file(filepath, env, source_dir, output_dir, site_tz=None):
 
     # 2. Parse BibTeX files
     all_pubs = []
-    bib_filename = post.get('publications')
+    bib_filename  = post.get('bibtex')
     last_modified = get_last_modified(filepath)
     pub_html = ""
 

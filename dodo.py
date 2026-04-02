@@ -31,15 +31,21 @@ def task_html():
                 try:
                     post = frontmatter.load(md_path)
                     layout_choice = post.get('layout', 'base')
-                    bib_filename  = post.get('bib_file')
+                    bib_filename  = post.get('bibtex')
 
                     # Resolve the file relative to the current markdown file
-                    md_dir = os.path.dirname(md_path)
-                    bib_path = os.path.normpath(os.path.join(md_dir, bib_filename))
+                    if bib_filename:
+                        md_dir   = os.path.dirname(md_path)
+                        bib_path = os.path.normpath(os.path.join(md_dir, bib_filename))
+                    else:
+                        bib_path = None
 
-                except Exception:
+                except Exception as e:
+                    print(f"Warning: Failed to parse frontmatter for {md_path}")
+                    print(f"Error: {e}")
+
                     layout_choice = 'base'
-                    bib_path  = None
+                    bib_path = None
 
                 # 1. Track the Markdown file as input
                 deps = [md_path]

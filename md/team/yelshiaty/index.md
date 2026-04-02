@@ -1,9 +1,9 @@
 ---
-title: Yara Elshiaty
+name: Yara Elshiaty
 layout: profile
 role: PhD Student
 photo: assets/images/yara.webp
-publications: publiations.bib
+bibtex: publications.bib
 ---
 
 ## About

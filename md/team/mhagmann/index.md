@@ -1,9 +1,9 @@
 ---
-title: Dr. Michael Hagmann
+name: Dr. Michael Hagmann
 layout: profile
 role:
 photo: assets/images/michael.jpg
-publications: publications.bib
+bibtex: publications.bib
 ---
 
 ## About

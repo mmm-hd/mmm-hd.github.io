@@ -1,9 +1,9 @@
 ---
-title: Sylvia Buettner
+name: Sylvia Buettner
 layout: profile
 role:
 photo: assets/images/sylvia.jpg
-publications: publications.bib
+bibtex: publications.bib
 ---
 
 ## About

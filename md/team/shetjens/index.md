@@ -1,9 +1,9 @@
 ---
-title: Dr. Svetlana Hetjens
+name: Dr. Svetlana Hetjens
 layout: profile
 role: 
 photo: assets/images/svetlana.jpg
-publications: publications.bib
+bibtex: publications.bib
 ---
 
 ## About

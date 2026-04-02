@@ -1,9 +1,13 @@
 ---
-title: Ferdinand Vanmaele
+name: Ferdinand Vanmaele
 layout: profile
 role: PhD Student
 photo: assets/images/ferdinand.webp
-publications: publications.bib
+office: Mathematikon, Office 4/229
+phone: +49 6221 5414 839
+github:
+orcid:
+bibtex: publications.bib
 ---
 
 ## About
@@ -17,7 +21,6 @@ int main(void) {
   return EXIT_SUCCESS;
 }
 ```
-
 
 ## Research
 
