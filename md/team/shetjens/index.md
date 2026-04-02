@@ -1,8 +1,9 @@
 ---
 title: Dr. Svetlana Hetjens
 layout: profile
-role: PhD Student
+role: 
 photo: assets/images/svetlana.jpg
+publications: publications.bib
 ---
 
 ## About
@@ -10,3 +11,4 @@ photo: assets/images/svetlana.jpg
 ## Research
 
 ## Publications
+[PUBL]

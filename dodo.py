@@ -28,9 +28,13 @@ def task_html():
                     layout_choice = post.get('layout', 'base')
                     bib_filename  = post.get('bib_file')
 
+                    # Resolve the file relative to the current markdown file
+                    md_dir = os.path.dirname(md_path)
+                    bib_path = os.path.normpath(os.path.join(md_dir, bib_filename))
+
                 except Exception:
                     layout_choice = 'base'
-                    bib_filename  = None
+                    bib_path  = None
 
                 # 1. Track the Markdown file as input
                 deps = [md_path] + COMMON_TEMPLATES
@@ -41,8 +45,8 @@ def task_html():
                     deps.append(layout_tmpl_path)
 
                 # 3. Track the BibTeX file if one is specified
-                if bib_filename and os.path.exists(bib_filename):
-                    deps.append(bib_filename)
+                if bib_path and os.path.exists(bib_path):
+                    deps.append(bib_path)
 
                 yield {
                     'name': md_path,

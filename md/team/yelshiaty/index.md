@@ -3,6 +3,7 @@ title: Yara Elshiaty
 layout: profile
 role: PhD Student
 photo: assets/images/yara.webp
+publications: publiations.bib
 ---
 
 ## About
@@ -10,3 +11,4 @@ photo: assets/images/yara.webp
 ## Research
 
 ## Publications
+[PUBL]

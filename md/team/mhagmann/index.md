@@ -3,6 +3,7 @@ title: Dr. Michael Hagmann
 layout: profile
 role:
 photo: assets/images/michael.jpg
+publications: publications.bib
 ---
 
 ## About
@@ -10,3 +11,4 @@ photo: assets/images/michael.jpg
 ## Research
 
 ## Publications
+[PUBL]

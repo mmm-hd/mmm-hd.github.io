@@ -13,6 +13,43 @@ from bibtexparser.bparser import BibTexParser
 from bibtexparser.customization import convert_to_unicode
 from jinja2 import Environment, FileSystemLoader
 
+# Markdown extension imports
+from markdown.extensions import Extension
+from markdown.blockprocessors import BlockProcessor
+from markdown.util import AtomicString
+import xml.etree.ElementTree as etree
+
+# Block processor for usage with extensions such as MathML
+class PublBlockProcessor(BlockProcessor):
+    def __init__(self, parser, pub_html):
+        super().__init__(parser)
+        self.pub_html = pub_html
+
+    def test(self, parent, block):
+        return block.strip() == '[PUBL]'
+
+    def run(self, parent, blocks):
+        blocks.pop(0)
+        # Create an element instance and append it to parent
+        el = etree.SubElement(parent, 'div')
+
+        # Stash the publications HTML
+        stash_token = self.parser.md.htmlStash.store(self.pub_html)
+
+        # Use AtomicString to tell other inline processors (and LaTeX)
+        # to completely ignore this text node and its control bytes
+        el.text = AtomicString(stash_token)
+
+
+class PublExtension(Extension):
+    def __init__(self, pub_html="", **kwargs):
+        self.config = {'pub_html': [pub_html, 'The raw HTML of the publication list to inject']}
+        super().__init__(**kwargs)
+
+    def extendMarkdown(self, md):
+        # Register before the standard Paragraph processor
+        md.parser.blockprocessors.register(PublBlockProcessor(md.parser, self.config['pub_html'][0]), 'publ', 175)
+
 
 def setup_environment():
     """Initialize and return the Jinja environment."""
@@ -78,7 +115,7 @@ def get_last_modified(filepath):
 
 
 def process_file(filepath, env, source_dir, output_dir, target_tz=None):
-    # Calculate path relative to the 'md' directory
+    # Calculate path relative to the source directory
     rel_path = os.path.relpath(filepath, source_dir)
     normalized_rel_path = rel_path.replace(os.sep, '/')
     filename = os.path.basename(normalized_rel_path)
@@ -87,38 +124,69 @@ def process_file(filepath, env, source_dir, output_dir, target_tz=None):
     depth = normalized_rel_path.count('/')
     prefix = '../' * depth if depth > 0 else ''
 
-    # Parse YAML frontmatter and markdown
-    post            = frontmatter.load(filepath)
-    md              = markdown.Markdown(extensions=['toc','extra','codehilite',LaTeX2MathMLExtension()])
-    html_content    = md.convert(post.content)
-    toc_html        = md.toc
-
     # Define canonical site timezone
     site_tz = ZoneInfo("Europe/Berlin")
 
     # 1. Base context starts with values in the YAML frontmatter
+    post    = frontmatter.load(filepath)
     context = post.metadata.copy()
 
     # 2. Parse BibTeX files
     all_pubs = []
-    bib_filename = post.get('bib_file')
+    bib_filename = post.get('publications')
     last_modified = get_last_modified(filepath)
+    pub_html = ""
 
     if bib_filename:
         try:
+            # Use path relative to the markdown file
+            md_dir = os.path.dirname(filepath)
+            bib_path = os.path.normpath(os.path.join(md_dir, bib_filename))
+
             # If a bib file exists, get its date and keep the most recent one
-            bib_last_modified = get_last_modified(bib_filename)
+            bib_last_modified = get_last_modified(bib_path)
             last_modified = max(bib_last_modified, last_modified)
 
-            all_pubs = parse_bibtex(bib_filename)
+            all_pubs = parse_bibtex(bib_path)
             context['publications'] = all_pubs
+
+            # Pre-render the publication list
+            pub_template = env.get_template('pub_list.tmpl')
+            pub_html = pub_template.render(publications=all_pubs)
+
         except FileNotFoundError:
             print(f"Warning: BibTeX file '{bib_filename}' not found for {filepath}")
+
+            # Inject a red error box for a missing file
+            pub_html = f"""
+            <div style="padding: 1rem; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 4px;">
+                <strong>Error:</strong> The specified BibTeX file <code>{bib_filename}</code> could not be found at the resolved path.
+            </div>
+            """
+
+    elif '[PUBL]' in post.content:
+        # Warn the user and inject a placeholder
+        print(f"Warning: '[PUBL]' tag found in {filepath}, but no 'bib_file' specified in frontmatter.")
+
+        # Inject a yellow warning box for missing metadata
+        pub_html = """
+        <div style="padding: 1rem; background-color: #ffeeba; color: #856404; border: 1px solid #ffeeba; border-radius: 4px;">
+            <strong>Warning:</strong> The <code>[PUBL]</code> keyword was used, but no <code>bib_file</code> was defined in the page frontmatter.
+        </div>
+        """
+
+    # Convert Markdown, injecting the publication list
+    md = markdown.Markdown(extensions=[
+        'toc','extra','codehilite',LaTeX2MathMLExtension(),PublExtension(pub_html=pub_html)
+    ])
+    html_content = md.convert(post.content)
+    toc_html     = md.toc
 
     # 3. Inject calculated routing variables
     context.update({
         'content': html_content,
-        'toc_html': md.toc,
+        'toc_html': toc_html,
+        'pub_html': pub_html,
         'PATH_PREFIX': prefix,
         'BUILD_DATE': last_modified.astimezone(site_tz).strftime("%B %d, %Y"),
         'IS_HOME': (filename == 'index.md' and depth == 0),

@@ -3,6 +3,7 @@ title: Daniel Gonzalez
 layout: profile
 role: PhD Student
 photo: assets/images/daniel.webp
+publications: publications.bib
 ---
 
 ## About
@@ -10,3 +11,4 @@ photo: assets/images/daniel.webp
 ## Research
 
 ## Publications
+[PUBL]

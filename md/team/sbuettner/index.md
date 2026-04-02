@@ -3,6 +3,7 @@ title: Sylvia Buettner
 layout: profile
 role:
 photo: assets/images/sylvia.jpg
+publications: publications.bib
 ---
 
 ## About
@@ -10,3 +11,4 @@ photo: assets/images/sylvia.jpg
 ## Research
 
 ## Publications
+[PUBL]

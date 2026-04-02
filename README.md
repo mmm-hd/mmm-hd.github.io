@@ -21,21 +21,18 @@ Every employee has their own "webspace" as a subdirectory in `team/`.
 The base page should be edited in `index.md`. The header consists of a
 profile photo, team role, title and text (Markdown) body.
 
-To include publications, add a BibTeX file and write the name in
-`bib_file`. The publications can then be inserted with the `[PUBL]`
-keyword.
+To include publications, add a BibTeX file and write the name in `publications`.
+The name is relative to the directory containing the Markdown file. 
 
-> **Note**: Currently BibTeX is only implemented for the main publications
-> page (#3).
+The publications can then be inserted with the `[PUBL]` keyword. For example:
 
-For example:
 ```md
 ---
 title: Jane Doe
 layout: profile
 role: Team Member
 photo: assets/images/jane.jpg
-bib_file: publications.bib
+publications: publications.bib
 ---
 
 ## About
