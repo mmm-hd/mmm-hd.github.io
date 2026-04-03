@@ -5,7 +5,7 @@ role: PhD Student
 photo: assets/images/ferdinand.webp
 office: Mathematikon, Office 4/229
 phone: +49 6221 5414 839
-email: info@fvanmaele.de
+email: ferdinand.vanmaele@medma.uni-heidelberg.de
 github: fvanmaele
 orcid: 0009-0000-6097-5975
 social: https://www.linkedin.com/in/ferdinand-vanmaele/
