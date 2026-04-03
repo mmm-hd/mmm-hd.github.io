@@ -216,6 +216,7 @@ def process_file(filepath, env, source_dir, output_dir, site_tz=None):
     # 3. Convert Markdown
     extensions = ['toc', 'extra', 'codehilite', LaTeX2MathMLExtension()]
     use_macros = post.metadata.get('render_macros', True)
+    use_toc    = post.metadata.get('toc', True)
 
     if use_macros:
         extensions.append(MacroExtension(pub_html=pub_html, contact_html=contact_html))
@@ -230,6 +231,7 @@ def process_file(filepath, env, source_dir, output_dir, site_tz=None):
     norm_path = routing['norm_path']
     context.update({
         'content': html_content,
+        'toc': use_toc,
         'toc_html': md.toc,
         'pub_html': pub_html,
         'PATH_PREFIX': routing['path_prefix'],

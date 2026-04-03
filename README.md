@@ -78,6 +78,7 @@ Something about my research...
 [CONTACT]
 ```
 The keywords `[PUBL]` or `[CONTACT]` can be used literally by setting `macros: false` in the header.
+A table of contents is generated pointing to defined sections; this can be disabled with `toc: false`.
 
 > *Note*:  The mail is split into user and domain, so that it cannot be retrieved directly
 from html.
