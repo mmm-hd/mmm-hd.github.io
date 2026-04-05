@@ -12,7 +12,6 @@ social:  https://www.linkedin.com/in/ferdinand-vanmaele/
 bibtex:  publications.bib
 toc:     false
 ---
-Something about myself...
 
 ## Research
 
