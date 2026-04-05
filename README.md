@@ -77,7 +77,7 @@ Something about my research...
 ## Contact
 [CONTACT]
 ```
-The keywords `[PUBL]` or `[CONTACT]` can be used literally by setting `macros: false` in the header.
+The keywords `[PUBL]` or `[CONTACT]` can be used literally by setting `render_macros: false` in the header.
 A table of contents is generated pointing to defined sections; this can be disabled with `toc: false`.
 
 > *Note*:  The mail is split into user and domain, so that it cannot be retrieved directly
@@ -101,6 +101,9 @@ Unfortunately there is no universal guide for `git`. Suggestions:
 For a basic guide to Markdown, see the following:
 * https://www.markdownguide.org/basic-syntax/
 * https://www.markdownguide.org/cheat-sheet/
+
+
+### Extensions
 
 Several extensions are supported (tables, code highlighting, MathML.)
 In particular you can write basic LaTeX formulas. For example:
