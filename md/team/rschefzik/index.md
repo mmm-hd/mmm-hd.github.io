@@ -34,7 +34,7 @@ Selected publications:
 
 [PUBL]
 
-For a full list of my publications, working papers and software packages, please see [here] (files/PublicationsRomanSchefzik.pdf).
+For a full list of my publications, working papers and software packages, please see [here] (https://github.com/mmm-hd/mmm-hd.github.io/blob/main/md/team/rschefzik/files/PublicationsRomanSchefzik.pdf).
 
 ## Teaching
 In the summer semester of 2026, I am teaching seminars and exercises in biomathematics for medical students at the Medical Faculty Mannheim of Heidelberg University.
