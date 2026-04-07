@@ -18,14 +18,14 @@ I am an applied statistician and data scientist with a background in mathematics
 Researchers and doctoral students at the Medical Faculty Mannheim of Heidelberg University and/or the University Medical Centre Mannheim: If you would like to schedule a statistical consulting session for your project, please contact me.
 
 ## Research Interests
-My research interests include
+My research interests include:
 
 * applied statistics and data science (with applications in medicine, psychiatry, epidemiology, bioinformatics, molecular biology, and meteorology),
 * probabilistic forecasting and uncertainty quantification,
 * dependence modeling,
 * copulas,
 * differential distributions,
-* network analyses,
+* network analysis,
 * multi-task learning, and
 * federated learning and differential privacy.
 
@@ -33,6 +33,8 @@ My research interests include
 Selected publications:
 
 [PUBL]
+
+For a full list of my publications, working papers and software packages, please see [here] ().
 
 ## Teaching
 In the summer semester of 2026, I am teaching seminars and exercises in biomathematics for medical students at the Medical Faculty Mannheim of Heidelberg University.
