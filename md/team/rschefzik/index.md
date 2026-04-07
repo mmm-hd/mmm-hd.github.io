@@ -11,7 +11,16 @@ orcid:   0009-0004-9998-2004
 bibtex: publications.bib
 ---
 
-## Research
+## Profile
+I am an applied statistician and data scientist with a background in mathematics. At the Medical Faculty Mannheim of Heidelberg University, I work as a statistical advisor for the analysis of medical-clinical data and as a senior researcher. My research interests include
+* applied statistics and data science in medicine, psychiatry, epidemiology, bioinformatics, molecular biology, and meteorology,
+* probabilistic forecasting and uncertainty quantification,
+* dependence modeling,
+* copulas,
+* differential distributions,
+* network analyses,
+* multi-task learning, and
+* federated learning and differential privacy.
 
 ## Publications
 [PUBL]
