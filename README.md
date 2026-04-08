@@ -71,6 +71,8 @@ Something about myself...
 ## Research
 Something about my research...
 
+Something about my [cats...](http.cat/300)
+
 ## Publications
 [PUBL]
 
