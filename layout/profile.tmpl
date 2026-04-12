@@ -10,7 +10,7 @@
     {% set show_toc = true if toc is none else toc %}
     {% include 'navbar.tmpl' %}
 
-    <div class="page-layout">
+    <div class="page-layout is-profile">
          <aside class="page-sidebar">
              <img src="{{ PATH_PREFIX }}{{ photo | default('assets/images/placeholder.jpeg') }}"
                   alt="{{ title | default('placeholder') }}" class="page-photo">

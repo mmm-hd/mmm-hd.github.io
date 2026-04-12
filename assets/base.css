@@ -286,6 +286,7 @@ header .search-icon {
     grid-template-columns: 1fr minmax(auto, calc(var(--container-width) - 40px)) 1fr;
     gap: 40px;
     margin-top: 30px;
+    /* margin: 20px auto 40px auto; */
     padding: 0 20px; /* Padding prevents content from touching screen edges */
 }
 
@@ -301,6 +302,17 @@ header .search-icon {
 /* Main Content placed in the Center (Column 2) */
 .page-content {
     grid-column: 2;
+}
+
+/* Restore natural breathing room for standard pages */
+.page-content h2:first-of-type {
+    margin-top: 1.5rem; 
+}
+
+/* Profile override (optional) */
+.is-profile .page-content h2:first-of-type {
+    /* Sucks the header up to align perfectly with the photo in the sidebar */
+    margin-top: 0; 
 }
 
 /* Sidebar Image & Nav styling remains unchanged */
@@ -479,15 +491,70 @@ footer {
 
 /* Tablet & Mobile (max-width: 1024px / 64em) */
 @media (max-width: 64em) {
+    
+    header {
+        padding: 10px 20px;
+    }
+
+    .menu-icon {
+        display: block;
+    }
+
+    header .links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        right: 20px;
+        left: auto;
+
+        min-width: 200px;     /* Sets a comfortable baseline width */
+        width: max-content;   /* Tells the menu to grow as wide as your longest link */
+
+        border-radius: 8px;
+        border: 1px solid #eeeeee;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        background: #ffffff;
+        padding: 10px 0;
+        z-index: 100;
+        gap: 0;
+    }
+
+    header .links a,
+    header .search-icon {
+        padding: 12px 20px;
+        display: block;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    /* Class triggered by JavaScript to show the menu */
+    header .links.show-menu {
+        display: flex;
+    }
+
+    .banner {
+        height: 180px;
+    }
+
+    .banner h1 {
+        font-size: 2rem;
+    }
+
     .banner-slim {
         margin-bottom: 20px;
+    }
+    
+    .container {
+        margin: 15px auto 30px auto;
+        padding: 0 15px;
     }
 
     /* 1. Force a strict vertical block stack (No Grid, No Flex) */
     .page-layout {
         display: block;
-        padding: 0 15px;
+	/* margin: 15px auto 30px auto; */
         margin-top: 0;
+        padding: 0 15px;
     }
 
     /* 2. Completely reset the sidebar to prevent layout collapse */
@@ -564,62 +631,6 @@ footer {
     .toc-nav a {
         padding: 10px 15px;
         border-bottom: 1px solid #f0f0f0;
-    }
-}
-
-/* Phones (max-width: 768px / 48em) */
-@media (max-width: 48em) {
-    header {
-        padding: 10px 20px;
-    }
-
-    .menu-icon {
-        display: block;
-    }
-
-    header .links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        right: 20px;
-        left: auto;
-
-        min-width: 200px;     /* Sets a comfortable baseline width */
-        width: max-content;   /* Tells the menu to grow as wide as your longest link */
-
-        border-radius: 8px;
-        border: 1px solid #eeeeee;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-        background: #ffffff;
-        padding: 10px 0;
-        z-index: 100;
-        gap: 0;
-    }
-
-    header .links a,
-    header .search-icon {
-        padding: 12px 20px;
-        display: block;
-        border-bottom: 1px solid #eeeeee;
-    }
-
-    /* Class triggered by JavaScript to show the menu */
-    header .links.show-menu {
-        display: flex;
-    }
-
-    .container {
-        margin: 15px auto 30px auto;
-        padding: 0 15px;
-    }
-
-    .banner {
-        height: 180px;
-    }
-
-    .banner h1 {
-        font-size: 2rem;
     }
 
     /* On mobile screens, stack the left and right text vertically */
