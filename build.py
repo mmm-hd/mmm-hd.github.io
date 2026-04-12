@@ -214,7 +214,7 @@ def process_file(filepath, env, source_dir, output_dir, site_tz=None):
         context['publications'] = all_pubs
 
     # 3. Convert Markdown
-    extensions = ['toc', 'extra', 'codehilite', LaTeX2MathMLExtension()]
+    extensions = ['toc', 'extra', 'codehilite', 'def_list', LaTeX2MathMLExtension()]
     use_macros = post.metadata.get('render_macros', True)
     use_toc    = post.metadata.get('toc', True)
 
