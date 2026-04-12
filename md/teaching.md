@@ -22,6 +22,8 @@ The lecture is complemented by exercises.
 
 ## Seminar: Information Geometry
 
+Information geometry studies the geometric structure of families of probability distributions, providing a differential–geometric framework for statistics and machine learning. Statistical models are viewed as manifolds equipped with the Fisher–Rao metric and dual affine connections, linking statistics, optimization, and convex analysis. This perspective underlies methods such as natural gradient descent and divergence-based learning.
+The seminar introduces core concepts (statistical manifolds, Fisher information, dually flat structures), followed by selected advanced topics and applications in areas such as optimization, inference, and reinforcement learning.
 
 * **Prerequisites:** Strong background in analysis and linear algebra; some familiarity with differential geometry and statistics.
 * **Audience:** Advanced bachelor’s and master’s students in mathematics or related fields.
