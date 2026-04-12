@@ -8,15 +8,28 @@
     <link rel="preload" as="image" href="{{ PATH_PREFIX }}assets/images/mountain_banner.webp" type="image/webp" fetchpriority="high">
 </head>
 <body>
+    {% set show_toc = false if toc is none else toc %}
     {% include 'navbar.tmpl' %}
 
     <div class="banner">
         <h1>{{ title }}</h1>
     </div>
 
-    <main class="container">
-        {{ content }}
-    </main>
+    <div class="page-layout">
+         {% if show_toc == true %}
+         <aside class="page-sidebar">
+             <div class="toc-toggle" id="toc-toggle">&#9776; Contents</div>
+
+             <nav class="toc-nav" id="toc-nav">
+                 {{ toc_html }}
+             </nav>
+         </aside>
+         {% endif %}
+	 
+         <main class="page-content">
+             {{ content }}
+         </main>
+    </div>
 
     {% include 'footer.tmpl' %}
 </body>

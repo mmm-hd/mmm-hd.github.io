@@ -280,7 +280,7 @@ header .search-icon {
 
 /* --- Individual Profile Page Styles --- */
 /* Full-width Grid Layout */
-.profile-layout {
+.page-layout {
     display: grid;
     /* 1. Left Margin | 2. Main Content (max container - gap) | 3. Right Margin */
     grid-template-columns: 1fr minmax(auto, calc(var(--container-width) - 40px)) 1fr;
@@ -290,7 +290,7 @@ header .search-icon {
 }
 
 /* Sidebar placed in the Left Margin (Column 1) */
-.profile-sidebar {
+.page-sidebar {
     grid-column: 1;
     justify-self: end; /* Aligns the sidebar to the right edge of the margin */
     width: 100%;
@@ -299,12 +299,12 @@ header .search-icon {
 }
 
 /* Main Content placed in the Center (Column 2) */
-.profile-content {
+.page-content {
     grid-column: 2;
 }
 
 /* Sidebar Image & Nav styling remains unchanged */
-.profile-photo {
+.page-photo {
     max-width: 100%;           /* Prevents it from breaking out of the sidebar */
     width: auto;               /* Allows width to shrink if max-height is reached */
     max-height: 250px;         /* Set your desired maximum height here */
@@ -484,14 +484,14 @@ footer {
     }
 
     /* 1. Force a strict vertical block stack (No Grid, No Flex) */
-    .profile-layout {
+    .page-layout {
         display: block;
         padding: 0 15px;
         margin-top: 0;
     }
 
     /* 2. Completely reset the sidebar to prevent layout collapse */
-    .profile-sidebar {
+    .page-sidebar {
         position: static; /* Explicitly disables the desktop sticky behavior */
         display: block;
         width: 100%;
@@ -502,7 +502,7 @@ footer {
     }
 
     /* 3. Center the photo reliably using inline-block */
-    .profile-photo {
+    .page-photo {
         /* Instructs browser to maintain proportional scaling */
         display: block;
         width: auto;     /* Do not force full width */
@@ -513,7 +513,7 @@ footer {
     }
 
     /* 4. Let the main content naturally flow below */
-    .profile-content h2:first-of-type {
+    .page-content h2:first-of-type {
         margin-top: 0; /* Prevents margin collapse issues with the sidebar */
     }
 

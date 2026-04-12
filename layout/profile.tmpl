@@ -7,12 +7,13 @@
     <link rel="stylesheet" href="{{ PATH_PREFIX }}assets/style.css">
 </head>
 <body>
+    {% set show_toc = true if toc is none else toc %}
     {% include 'navbar.tmpl' %}
 
-    <div class="profile-layout">
-         <aside class="profile-sidebar">
+    <div class="page-layout">
+         <aside class="page-sidebar">
              <img src="{{ PATH_PREFIX }}{{ photo | default('assets/images/placeholder.jpeg') }}"
-                  alt="{{ title | default('placeholder') }}" class="profile-photo">
+                  alt="{{ title | default('placeholder') }}" class="page-photo">
 
              <h1 class="sidebar-name">{{ name }}</h1>
 
@@ -20,7 +21,7 @@
              <p class="sidebar-role">{{ role }}</p>
              {% endif %}
 
-             {% if toc == true %}
+             {% if show_toc == true %}
              <div class="toc-toggle" id="toc-toggle">&#9776; Contents</div>
 
              <nav class="toc-nav" id="toc-nav">
@@ -29,7 +30,7 @@
              {% endif %}
          </aside>
 
-         <main class="profile-content">
+         <main class="page-content">
              {{ content }}
          </main>
      </div>

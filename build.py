@@ -216,7 +216,7 @@ def process_file(filepath, env, source_dir, output_dir, site_tz=None):
     # 3. Convert Markdown
     extensions = ['toc', 'extra', 'codehilite', 'def_list', LaTeX2MathMLExtension()]
     use_macros = post.metadata.get('render_macros', True)
-    use_toc    = post.metadata.get('toc', True)
+    use_toc    = post.metadata.get('toc')  # None if not present
 
     if use_macros:
         extensions.append(MacroExtension(pub_html=pub_html, contact_html=contact_html))
