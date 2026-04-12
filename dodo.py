@@ -30,15 +30,26 @@ def task_html():
                 # Retrieve used layout (template) from markdown file
                 try:
                     post = frontmatter.load(md_path)
+                    md_dir = os.path.dirname(md_path)
                     layout_choice = post.get('layout', 'base')
                     bib_filename  = post.get('bibtex')
+                    teaching_data = post.get('teaching_data', [])
+                    teaching_path = []
 
                     # Resolve the file relative to the current markdown file
                     if bib_filename:
-                        md_dir   = os.path.dirname(md_path)
                         bib_path = os.path.normpath(os.path.join(md_dir, bib_filename))
                     else:
                         bib_path = None
+
+                    for item in teaching_data:
+                        csv_filename = item.get('file')
+
+                        if csv_filename:
+                            csv_path = os.path.normpath(os.path.join(md_dir, csv_filename))
+                            teaching_path.append(csv_path)
+                        else:
+                            csv_path = None
 
                 except Exception as e:
                     print(f"Warning: Failed to parse frontmatter for {md_path}")
@@ -46,6 +57,7 @@ def task_html():
 
                     layout_choice = 'base'
                     bib_path = None
+                    teaching_data = []
 
                 # 1. Track the Markdown file as input
                 deps = [md_path]
@@ -63,6 +75,11 @@ def task_html():
                 # 4. Track the BibTeX file if one is specified
                 if bib_path and os.path.exists(bib_path):
                     deps.append(bib_path)
+
+                # 5. Track the CSV file if one is specified
+                for csv_path in teaching_path:
+                    if csv_path and os.path.exists(csv_path):
+                        deps.append(csv_path)
 
                 yield {
                     'name': md_path,

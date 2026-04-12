@@ -5,6 +5,8 @@ import markdown
 import frontmatter
 import bibtexparser
 import subprocess
+import csv
+import re
 
 from l2m4m import LaTeX2MathMLExtension
 from datetime import datetime, timezone
@@ -44,11 +46,39 @@ class MacroBlockProcessor(BlockProcessor):
             div.text = placeholder
 
 
+class ParamBlockProcessor(BlockProcessor):
+    """Processor to replace [TAG:ID] with HTML mapped to that ID."""
+    def __init__(self, parser, pattern, html_dict):
+        super().__init__(parser)
+        self.pattern = re.compile(pattern)
+        self.html_dict = html_dict
+
+    def test(self, parent, block):
+        # Returns True if the block matches exactly [TAG:ID]
+        return bool(self.pattern.match(block.strip()))
+
+    def run(self, parent, blocks):
+        block = blocks.pop(0).strip()
+        match = self.pattern.match(block)
+        if match:
+            block_id = match.group(1)
+            # Fetch the pre-rendered HTML, or a warning if the ID wasn't found
+            html_content = self.html_dict.get(
+                block_id,
+                f"<div style='color:red;'>[Warning: No data found for ID {block_id}]</div>"
+            )
+
+            div = etree.SubElement(parent, 'div')
+            placeholder = self.parser.md.htmlStash.store(html_content)
+            div.text = placeholder
+
+
 class MacroExtension(markdown.Extension):
     def __init__(self, **kwargs):
         self.config = {
             'pub_html': ['', 'HTML for publications'],
-            'contact_html': ['', 'HTML for contact info']
+            'contact_html': ['', 'HTML for contact info'],
+            'teaching_blocks': [{}, 'Dictionary of teaching HTML blocks']
         }
         super().__init__(**kwargs)
 
@@ -60,6 +90,13 @@ class MacroExtension(markdown.Extension):
         md.parser.blockprocessors.register(
             MacroBlockProcessor(md.parser, '[CONTACT]', self.getConfig('contact_html')),
             'contact_macro', 176
+        )
+        # Parameterized regex processor for [TEACHING:id]
+        md.parser.blockprocessors.register(
+            ParamBlockProcessor(md.parser,r'^\[TEACHING:([a-zA-Z0-9_-]+)\]$',
+                self.getConfig('teaching_blocks')
+            ),
+            'teaching_macro', 177
         )
 
 
@@ -196,6 +233,51 @@ def render_publications(metadata, filepath, env, base_last_modified, content):
         """, [], base_last_modified
 
 
+def render_teaching_blocks(metadata, filepath, env):
+    """Reads teaching CSVs and returns a dict of HTML blocks keyed by LV_NUMMER."""
+    datasets = metadata.get('teaching_data', [])
+    md_dir = os.path.dirname(filepath)
+    courses = {}
+
+    for data in datasets:
+        csv_filename = data.get('file')
+        if not csv_filename: continue
+
+        csv_path = os.path.normpath(os.path.join(md_dir, csv_filename))
+        if not os.path.exists(csv_path):
+            print(f"Warning: Teaching CSV '{csv_filename}' not found.")
+            continue
+
+        with open(csv_path, newline='', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                lv_id = row.get('LV_NUMMER')
+                if not lv_id: continue
+
+                if lv_id not in courses:
+                    courses[lv_id] = {'title': row['TITEL'], 'schedule': []}
+
+                courses[lv_id]['schedule'].append({
+                    'date': row['DATUM'],
+                    'time': f"{row['VON']} - {row['BIS']}",
+                    'room': row['ORT']
+                })
+
+    # Render templates
+    html_blocks = {}
+    try:
+        template = env.get_template('teaching_list.tmpl')
+        for lv_id, course_data in courses.items():
+            html_blocks[lv_id] = template.render(
+                course_title=course_data['title'],
+                schedule=course_data['schedule']
+            )
+    except Exception as e:
+        print(f"Warning: Could not render teaching templates: {e}")
+
+    return html_blocks
+
+
 def process_file(filepath, env, source_dir, output_dir, site_tz=None):
     # 1. Routing & setup
     routing       = get_routing_info(filepath, source_dir)
@@ -213,13 +295,20 @@ def process_file(filepath, env, source_dir, output_dir, site_tz=None):
     if all_pubs:
         context['publications'] = all_pubs
 
+    # Process teaching blocks
+    teaching_blocks = render_teaching_blocks(post.metadata, filepath, env)
+
     # 3. Convert Markdown
     extensions = ['toc', 'extra', 'codehilite', LaTeX2MathMLExtension()]
     use_macros = post.metadata.get('render_macros', True)
     use_toc    = post.metadata.get('toc', True)
 
     if use_macros:
-        extensions.append(MacroExtension(pub_html=pub_html, contact_html=contact_html))
+        extensions.append(MacroExtension(
+            pub_html=pub_html,
+            contact_html=contact_html,
+            teaching_blocks=teaching_blocks
+        ))
     else:
         # Skip the extension; [PUBL] and [CONTACT] remain as raw text
         print(f"Info: macros disabled for {routing['filename']}")

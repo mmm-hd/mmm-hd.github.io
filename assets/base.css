@@ -475,6 +475,42 @@ footer {
     font-size: 0.9rem;
 }
 
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse; /* Required to merge borders into single thin lines */
+    margin-bottom: 1.5rem;
+}
+
+/* Spacing between the entries */
+.schedule-table th,
+.schedule-table td {
+    padding: 4px 16px;
+    text-align: left;
+    vertical-align: top;
+}
+
+/* Neutral gray background for the header */
+.schedule-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    border-bottom: 2px solid #dcdcdc; /* Slightly thicker line to separate header */
+}
+
+/* Thin lines between the rows */
+.schedule-table td {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Remove the bottom border from the very last row for a cleaner look */
+.schedule-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Optional: Subtle hover effect to help track rows horizontally */
+.schedule-table tbody tr:hover {
+    background-color: #fafafa;
+}
+
 /* --- Mobile Responsive Layout (Media Queries) --- */
 
 /* Tablet & Mobile (max-width: 1024px / 64em) */
