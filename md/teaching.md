@@ -22,5 +22,10 @@ The lecture is complemented by exercises.
 
 ## Seminar: Information Geometry
 
-* **Seminar (Mondays):** <br>13 Apr–20 Jul, 11:15–12:45, SR 6, Mathematikon (INF 205)
+
+* **Prerequisites:** Strong background in analysis and linear algebra; some familiarity with differential geometry and statistics.
+* **Audience:** Advanced bachelor’s and master’s students in mathematics or related fields.
+* **Format:** 60-minute presentations; language: English.
+* **Time & place:** Mondays, 11am–1pm, SR 6, Mathematikon (INF 205)
+* **Further info:** Pre-talk: 13.04; register via HeiCO. Contact: elshiaty@math.uni-heidelberg.de
 * [List of talks and further information](https://heibox.uni-heidelberg.de/f/f9d5eb775fba4416b707/)
