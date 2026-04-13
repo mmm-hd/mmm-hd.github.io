@@ -1,6 +1,7 @@
 ---
 title: Teaching
 layout: base
+toc: true
 ---
 
 # Summer semester 2026

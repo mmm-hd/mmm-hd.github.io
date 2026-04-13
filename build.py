@@ -22,6 +22,7 @@ import xml.etree.ElementTree as etree
 import re
 from markdown.blockprocessors import BlockProcessor
 import xml.etree.ElementTree as etree
+from html.parser import HTMLParser
 
 class MacroBlockProcessor(BlockProcessor):
     """Generic processor to replace a [TAG] with pre-rendered HTML."""
@@ -61,14 +62,6 @@ class MacroExtension(markdown.Extension):
             MacroBlockProcessor(md.parser, '[CONTACT]', self.getConfig('contact_html')),
             'contact_macro', 176
         )
-
-
-def setup_environment(template_dir):
-    """Initialize and return the Jinja environment."""
-    return Environment(loader=FileSystemLoader(template_dir),
-                       trim_blocks=True,    # Removes the first newline after a block
-                       lstrip_blocks=True   # Strips tabs and spaces from the start of a line to a block
-    )
 
 
 def parse_bibtex(bib_filename):
@@ -196,6 +189,68 @@ def render_publications(metadata, filepath, env, base_last_modified, content):
         """, [], base_last_modified
 
 
+    
+class UniversalTOCParser(HTMLParser):
+    """Extracts h2 and h3 tags with IDs to build a unified Table of Contents."""
+    def __init__(self):
+        super().__init__()
+        self.toc_items = []
+        self.current_header = None
+        self.current_id = None
+        self.current_text = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag in ['h2', 'h3']:
+            self.current_header = tag
+            # Safely extract the id attribute, regardless of order
+            for attr, value in attrs:
+                if attr == 'id':
+                    self.current_id = value
+                    break
+
+    def handle_data(self, data):
+        # If we are inside a valid header with an ID, collect the text
+        if self.current_header and self.current_id:
+            self.current_text.append(data)
+
+    def handle_endtag(self, tag):
+        # When the header closes, compile the data and reset the state
+        if tag == self.current_header and self.current_id:
+            text = "".join(self.current_text).strip()
+            if text:
+                self.toc_items.append({
+                    'level': int(tag[1]),
+                    'id': self.current_id,
+                    'text': text
+                })
+            
+            # Reset for the next header
+            self.current_header = None
+            self.current_id = None
+            self.current_text = []
+
+
+def extract_toc_data(html_content):
+    """Parses HTML strictly and returns a list of dictionaries, NOT HTML strings."""
+    parser = UniversalTOCParser()
+    parser.feed(html_content)
+    
+    # Returns a list like: [{'level': 2, 'id': 'intro', 'text': 'Introduction'}, ...]
+    return parser.toc_items
+
+
+def setup_environment(template_dir):
+    """Initialize and return the Jinja environment."""
+    env = Environment(loader=FileSystemLoader(template_dir),
+                      trim_blocks=True,    # Removes the first newline after a block
+                      lstrip_blocks=True   # Strips tabs and spaces from the start of a line to a block
+                      )
+    # Register TOC builder as Jinja filter
+    env.filters['extract_toc'] = extract_toc_data
+
+    return env
+
+
 def process_file(filepath, env, source_dir, output_dir, site_tz=None):
     # 1. Routing & setup
     routing       = get_routing_info(filepath, source_dir)
@@ -216,8 +271,14 @@ def process_file(filepath, env, source_dir, output_dir, site_tz=None):
     # 3. Convert Markdown
     extensions = ['toc', 'extra', 'codehilite', 'def_list', LaTeX2MathMLExtension()]
     use_macros = post.metadata.get('render_macros', True)
-    use_toc    = post.metadata.get('toc')  # None if not present
+    use_toc    = post.metadata.get('toc', None)
 
+    # TODO: fix default toc options for dependent templates
+    layout_choice = post.metadata.get('layout', 'base')
+
+    if use_toc is None:
+        use_toc = True if layout_choice == 'profile' else False
+        
     if use_macros:
         extensions.append(MacroExtension(pub_html=pub_html, contact_html=contact_html))
     else:
@@ -227,12 +288,11 @@ def process_file(filepath, env, source_dir, output_dir, site_tz=None):
     md = markdown.Markdown(extensions=extensions)
     html_content = md.convert(post.content)
 
-    # 4. Assemble final template context
+    # 4. Prepare base template context
     norm_path = routing['norm_path']
     context.update({
         'content': html_content,
         'toc': use_toc,
-        'toc_html': md.toc,
         'pub_html': pub_html,
         'PATH_PREFIX': routing['path_prefix'],
         'BUILD_DATE': last_modified.astimezone(site_tz).strftime("%B %d, %Y"),
@@ -244,7 +304,6 @@ def process_file(filepath, env, source_dir, output_dir, site_tz=None):
     })
 
     # 5. Render template
-    layout_choice = post.metadata.get('layout', 'base')
     try:
         template = env.get_template(f"{layout_choice}.tmpl")
     except Exception:

@@ -8,27 +8,57 @@
     <link rel="preload" as="image" href="{{ PATH_PREFIX }}assets/images/mountain_banner.webp" type="image/webp" fetchpriority="high">
 </head>
 <body>
-    {% set show_toc = false if toc is none else toc %}
     {% include 'navbar.tmpl' %}
 
     <div class="banner">
         <h1>{{ title }}</h1>
     </div>
 
-    <div class="page-layout">
-         {% if show_toc == true %}
-         <aside class="page-sidebar">
-             <div class="toc-toggle" id="toc-toggle">&#9776; Contents</div>
+    {# 1. CAPTURE the main content #}
+    {% set inner_html %}
+        {% block page_content %}
+            {{ content }}
+        {% endblock %}
+    {% endset %}
 
-             <nav class="toc-nav" id="toc-nav">
-                 {{ toc_html }}
-             </nav>
-         </aside>
-         {% endif %}
-	 
-         <main class="page-content">
-             {{ content }}
-         </main>
+    {# 2. CAPTURE custom sidebar content (like photos/roles) #}
+    {% set sidebar_custom %}
+        {% block sidebar_content %}{% endblock %}
+    {% endset %}
+
+    {# 3. EXTRACT the TOC data #}
+    {% set toc_data = inner_html | extract_toc %}
+
+    {# 4. Render sidebar if TOC *OR* custom content is present #}
+    {% set render_sidebar = (toc and toc_data) or (sidebar_custom | trim) %}
+
+    {# Notice the injected layout_modifier block below #}
+    <div class="page-layout {% block layout_modifier %}{% endblock %}">
+        
+        {% if render_sidebar %}
+        <aside class="page-sidebar">            
+            {# Inject the photo/name here (empty on standard pages) #}
+            {{ sidebar_custom }}
+            
+            {% if toc and toc_data %}
+            <div class="toc-toggle" id="toc-toggle">&#9776; Contents</div>
+            <nav class="toc-nav" id="toc-nav">
+                <ul class="toc-list">
+                    {% for item in toc_data %}
+                        <li class="{% if item.level == 3 %}toc-sub{% endif %}">
+                            <a href="#{{ item.id }}">{{ item.text }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+            {% endif %}
+            
+        </aside>
+        {% endif %}
+
+        <main class="page-content">
+            {{ inner_html }}
+        </main>
     </div>
 
     {% include 'footer.tmpl' %}

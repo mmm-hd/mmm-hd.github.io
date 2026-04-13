@@ -1,40 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title | default(name) }} &mdash; MMM</title>
-    <link rel="stylesheet" href="{{ PATH_PREFIX }}assets/style.css">
-</head>
-<body>
-    {% set show_toc = true if toc is none else toc %}
-    {% include 'navbar.tmpl' %}
+{% extends "base.tmpl" %}
 
-    <div class="page-layout is-profile">
-         <aside class="page-sidebar">
-             <img src="{{ PATH_PREFIX }}{{ photo | default('assets/images/placeholder.jpeg') }}"
-                  alt="{{ title | default('placeholder') }}" class="page-photo">
+{# 1. Inject the profile CSS modifier into the parent's grid #}
+{% block layout_modifier %}is-profile{% endblock %}
 
-             <h1 class="sidebar-name">{{ name }}</h1>
+{# 2. Inject the profile photo and data into the parent's sidebar #}
+{% block sidebar_content %}
+    <img src="{{ PATH_PREFIX }}{{ photo | default('assets/images/placeholder.jpeg') }}"
+         alt="{{ title | default('placeholder') }}" class="page-photo">
 
-             {% if role %}
-             <p class="sidebar-role">{{ role }}</p>
-             {% endif %}
+    <h1 class="sidebar-name">{{ name }}</h1>
 
-             {% if show_toc == true %}
-             <div class="toc-toggle" id="toc-toggle">&#9776; Contents</div>
+    {% if role %}
+    <p class="sidebar-role">{{ role }}</p>
+    {% endif %}
+{% endblock %}
 
-             <nav class="toc-nav" id="toc-nav">
-                 {{ toc_html }}
-             </nav>
-             {% endif %}
-         </aside>
-
-         <main class="page-content">
-             {{ content }}
-         </main>
-     </div>
-
-    {% include 'footer.tmpl' %}
-</body>
-</html>
+{# 3. Inject the standard text into the parent's main column #}
+{% block page_content %}
+    {{ content }}
+{% endblock %}

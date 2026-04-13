@@ -15,6 +15,10 @@ SITE_TZ = ZoneInfo("Europe/Berlin")
 # Templates that affect the entire website
 COMMON_TEMPLATES = ['navbar.tmpl', 'footer.tmpl', 'contact.tmpl']
 
+EXTENDS = {'publications.tmpl': 'base.tmpl',
+           'profile.tmpl': 'base.tmpl'}
+
+
 def task_html():
     """Compile Markdown files to HTML."""
 
@@ -54,11 +58,17 @@ def task_html():
                 for common in COMMON_TEMPLATES:
                     layout_tmpl_path = os.path.join(LAYOUT_DIR, common)
                     deps.append(layout_tmpl_path)
-
+                        
                 # 3. Track the used layout template
                 layout_tmpl_path = os.path.join(LAYOUT_DIR, f"{layout_choice}.tmpl")
                 if layout_tmpl_path not in deps and os.path.exists(layout_tmpl_path):
                     deps.append(layout_tmpl_path)
+
+                # Track dependent templates
+                for key in EXTENDS.keys():
+                    layout_tmpl_path = os.path.join(LAYOUT_DIR, key)
+                    if layout_tmpl_path in deps:
+                        deps.append(os.path.join(LAYOUT_DIR, EXTENDS[key]))
 
                 # 4. Track the BibTeX file if one is specified
                 if bib_path and os.path.exists(bib_path):
