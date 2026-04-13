@@ -17,7 +17,6 @@
     <main class="container">
         {{ content }}
 
-        <h2>Members</h2>
         <div class="team-grid">
             {% for person in members %}
             <a href="{{ PATH_PREFIX }}{{ person.url }}" class="team-card">
@@ -25,17 +24,6 @@
                 <h3>{{ person.name }}</h3>
                 {% if person.role %}<p class="role">{{ person.role }}</p>{% endif %}
                 {% if person.topic %}<p>Topic: {{ person.topic }}</p>{% endif %}
-            </a>
-            {% endfor %}
-        </div>
-
-        <h2>Affiliate Members</h2>
-        <div class="team-grid">
-            {% for person in affiliates %}
-            <a href="{{ PATH_PREFIX }}{{ person.url }}" class="team-card">
-                <img src="{{ PATH_PREFIX }}{{ person.image }}" alt="{{ person.name }}">
-                <h3>{{ person.name }}</h3>
-                {% if person.role %}<p class="role">{{ person.role }}</p>{% endif %}
             </a>
             {% endfor %}
         </div>
