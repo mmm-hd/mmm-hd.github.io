@@ -3,8 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prof. Dr. Stefania Petra &mdash; MMM</title>
+    <title> &mdash; MMM</title>
     <link rel="stylesheet" href="../../assets/style.css">
+    <link rel="preload" as="image" href="../../assets/images/mountain_banner.webp" type="image/webp" fetchpriority="high">
 </head>
 <body>
 <header>
@@ -24,31 +25,44 @@
         <a href="../../contact.html">Contact</a>
     </nav>
 </header>
+    <div class="banner">
+        <h1></h1>
+    </div>
+
+
+
+
+
     <div class="page-layout is-profile">
-         <aside class="page-sidebar">
-             <img src="../../assets/images/stefania.webp"
-                  alt="placeholder" class="page-photo">
+        
+        <aside class="page-sidebar">            
+                <img src="../../assets/images/stefania.webp"
+         alt="placeholder" class="page-photo">
 
-             <h1 class="sidebar-name">Prof. Dr. Stefania Petra</h1>
+    <h1 class="sidebar-name">Prof. Dr. Stefania Petra</h1>
 
-             <p class="sidebar-role">Group Leader</p>
+    <p class="sidebar-role">Group Leader</p>
 
-             <div class="toc-toggle" id="toc-toggle">&#9776; Contents</div>
+            
+            <div class="toc-toggle" id="toc-toggle">&#9776; Contents</div>
+            <nav class="toc-nav" id="toc-nav">
+                <ul class="toc-list">
+                        <li class="">
+                            <a href="#research">Research</a>
+                        </li>
+                        <li class="">
+                            <a href="#publications">Publications</a>
+                        </li>
+                        <li class="">
+                            <a href="#contact">Contact</a>
+                        </li>
+                </ul>
+            </nav>
+            
+        </aside>
 
-             <nav class="toc-nav" id="toc-nav">
-                 <div class="toc">
-<ul>
-<li><a href="#research">Research</a></li>
-<li><a href="#publications">Publications</a></li>
-<li><a href="#contact">Contact</a></li>
-</ul>
-</div>
-
-             </nav>
-         </aside>
-
-         <main class="page-content">
-             <h2 id="research">Research</h2>
+        <main class="page-content">
+                <h2 id="research">Research</h2>
 <h2 id="publications">Publications</h2>
 <div>
 <ul class="publication-list">
@@ -62,8 +76,9 @@
 
 
 </div></div>
-         </main>
-     </div>
+
+        </main>
+    </div>
 
 <footer>
     <div class="footer-content">

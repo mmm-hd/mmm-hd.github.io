@@ -3,8 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Roman Schefzik &mdash; MMM</title>
+    <title> &mdash; MMM</title>
     <link rel="stylesheet" href="../../assets/style.css">
+    <link rel="preload" as="image" href="../../assets/images/mountain_banner.webp" type="image/webp" fetchpriority="high">
 </head>
 <body>
 <header>
@@ -24,34 +25,53 @@
         <a href="../../contact.html">Contact</a>
     </nav>
 </header>
+    <div class="banner">
+        <h1></h1>
+    </div>
+
+
+
+
+
     <div class="page-layout is-profile">
-         <aside class="page-sidebar">
-             <img src="../../assets/images/roman.webp"
-                  alt="placeholder" class="page-photo">
+        
+        <aside class="page-sidebar">            
+                <img src="../../assets/images/roman.webp"
+         alt="placeholder" class="page-photo">
 
-             <h1 class="sidebar-name">Dr. Roman Schefzik</h1>
+    <h1 class="sidebar-name">Dr. Roman Schefzik</h1>
 
-             <p class="sidebar-role">Statistical Consultant,<br>Senior Researcher</p>
+    <p class="sidebar-role">Statistical Consultant,<br>Senior Researcher</p>
 
-             <div class="toc-toggle" id="toc-toggle">&#9776; Contents</div>
+            
+            <div class="toc-toggle" id="toc-toggle">&#9776; Contents</div>
+            <nav class="toc-nav" id="toc-nav">
+                <ul class="toc-list">
+                        <li class="">
+                            <a href="#profile">Profile</a>
+                        </li>
+                        <li class="">
+                            <a href="#statistical-consulting">Statistical Consulting</a>
+                        </li>
+                        <li class="">
+                            <a href="#research-interests">Research Interests</a>
+                        </li>
+                        <li class="">
+                            <a href="#publications">Publications</a>
+                        </li>
+                        <li class="">
+                            <a href="#teaching">Teaching</a>
+                        </li>
+                        <li class="">
+                            <a href="#contact">Contact</a>
+                        </li>
+                </ul>
+            </nav>
+            
+        </aside>
 
-             <nav class="toc-nav" id="toc-nav">
-                 <div class="toc">
-<ul>
-<li><a href="#profile">Profile</a></li>
-<li><a href="#statistical-consulting">Statistical Consulting</a></li>
-<li><a href="#research-interests">Research Interests</a></li>
-<li><a href="#publications">Publications</a></li>
-<li><a href="#teaching">Teaching</a></li>
-<li><a href="#contact">Contact</a></li>
-</ul>
-</div>
-
-             </nav>
-         </aside>
-
-         <main class="page-content">
-             <h2 id="profile">Profile</h2>
+        <main class="page-content">
+                <h2 id="profile">Profile</h2>
 <p>I am an applied statistician and data scientist with a background in mathematics, working as a statistical consultant for the analysis of clinical and medical data, as well as a senior researcher.</p>
 <h2 id="statistical-consulting">Statistical Consulting</h2>
 <p>Researchers and doctoral students at the Medical Faculty Mannheim of Heidelberg University and/or the University Medical Centre Mannheim: If you would like to schedule a statistical consulting session for your project, please contact me.</p>
@@ -165,8 +185,9 @@
 
 
 </div></div>
-         </main>
-     </div>
+
+        </main>
+    </div>
 
 <footer>
     <div class="footer-content">

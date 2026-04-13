@@ -418,6 +418,13 @@ header .search-icon {
     border-bottom: none;
 }
 
+/* Add this wherever your existing .toc-nav styling lives */
+.toc-nav .toc-sub {
+    margin-left: 1.25rem;
+    font-size: 0.9em;
+    opacity: 0.85; /* Makes sub-headers slightly less prominent */
+}
+
 .toc-toggle {
     display: none;
 }
