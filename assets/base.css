@@ -552,8 +552,7 @@ footer {
     /* 1. Force a strict vertical block stack (No Grid, No Flex) */
     .page-layout {
         display: block;
-	/* margin: 15px auto 30px auto; */
-        margin-top: 0;
+	margin: 15px auto 30px auto;
         padding: 0 15px;
     }
 
@@ -577,11 +576,6 @@ footer {
         max-width: 200px; /* Reduced slightly from 250px for tight screens */
         max-height: 35vh; /* Caps the photo height at 35% of viewport */
         margin: 0 auto 15px auto;
-    }
-
-    /* 4. Let the main content naturally flow below */
-    .page-content h2:first-of-type {
-        margin-top: 0; /* Prevents margin collapse issues with the sidebar */
     }
 
     /* FAB Toggle Button (Pill shape) */
