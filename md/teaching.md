@@ -29,7 +29,7 @@ The seminar introduces core concepts (statistical manifolds, Fisher information,
 * **Audience:** Advanced bachelor’s and master’s students in mathematics or related fields.
 * **Format:** 60-minute presentations; language: English.
 * **Time & place:** Mondays, 11am–1pm, SR 6, Mathematikon (INF 205)
-* **Further info:** Pre-talk: 13.04; register via HeiCO.
+* **Further info:** Pre-talk: 13.04; register via [heiCO](https://heico.uni-heidelberg.de/heiCO/ee/ui/ca2/app/desktop/#/slc.tm.cp/student/courses/417020).
 * [List of talks and further information](https://heibox.uni-heidelberg.de/f/f9d5eb775fba4416b707/)
 
 <p class="email-link">
