@@ -1,5 +1,8 @@
 {% extends "base.tmpl" %}
 
+{# 1. Clear the banner so it doesn't show on profile pages #}
+{% block page_banner %}{% endblock %}
+
 {# 1. Inject the profile CSS modifier into the parent's grid #}
 {% block layout_modifier %}is-profile{% endblock %}
 

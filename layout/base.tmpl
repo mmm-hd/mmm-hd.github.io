@@ -10,10 +10,13 @@
 <body>
     {% include 'navbar.tmpl' %}
 
+    {# Make the banner a block so children can override or remove it #}
+    {% block page_banner %}
     <div class="banner">
         <h1>{{ title }}</h1>
     </div>
-
+    {% endblock %}
+    
     {# 1. CAPTURE the main content #}
     {% set inner_html %}
         {% block page_content %}
