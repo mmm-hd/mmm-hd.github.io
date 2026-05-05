@@ -5,7 +5,7 @@ role: Statistical Consultant,<br>Junior Researcher
 photo: assets/images/jonathan.webp
 office:  Theodor-Kutzer-Ufer 1-3, D-68167 Mannheim (Building 3, Level 4) 
 phone:   +49 621 383 79442
-email:  [jonathan.schwarz@medma.uni-heidelberg.de](jonathan.schwarz@medma.uni-heidelberg.de)
+email:  jonathan.schwarz@medma.uni-heidelberg.de
 bibtex: publications.bib
 ---
 
