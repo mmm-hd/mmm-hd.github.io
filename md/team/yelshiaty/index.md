@@ -7,7 +7,7 @@ office:  Mathematikon, Office 4/229
 phone:   +49 6221 5414 839
 email:   elshiaty@math.uni-heidelberg.de
 orcid:   0000-0001-8705-2484
-google scholar:  https://scholar.google.com/citations?user=PtUCl8IAAAAJ&hl=en
+social:  https://scholar.google.com/citations?user=PtUCl8IAAAAJ&hl=en
 bibtex: publications.bib
 ---
 
