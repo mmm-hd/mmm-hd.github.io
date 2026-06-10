@@ -1,7 +1,7 @@
 /* Define a fallback of 100px just in case JS fails to load */
 :root {
     --header-height: 100px;
-    --container-width: 840px;
+    --container-width: 1000px;  /* 1010px for 4 columns in .team-grid */
     --sticky-gap: 20px; /* The breathing room between the header and the ToC */
     --total-offset: calc(var(--header-height) + var(--sticky-gap));
 }
