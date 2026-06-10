@@ -39,4 +39,7 @@ members:
     role: Core Facility
     image: assets/images/sylvia.jpg
     url: team/sbuettner/index.html
+  - name: Łukasz Adamowicz
+    role: Teaching Assistant
+    image: assets/images/placeholder.jpeg
 ---
