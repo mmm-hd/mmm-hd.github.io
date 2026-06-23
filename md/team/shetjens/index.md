@@ -38,6 +38,9 @@ Selected publications:
 
 <p>For a full list of my publications please see <a href="https://mmm-hd.github.io/assets/pdfs/PublikationsSvetlanaHetjens.pdf" target="_blank" rel="noopener noreferrer">here</a>.</p>
 
+## Teaching
+In the summer semester of 2026, I am teaching seminars and exercises in biomathematics for medical students at the Medical Faculty Mannheim of Heidelberg University.
+
 ## Contact
 [CONTACT]
 
