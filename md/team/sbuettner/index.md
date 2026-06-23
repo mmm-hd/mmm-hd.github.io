@@ -1,10 +1,10 @@
 ---
-name: Sylvia Buettner
+name: Sylvia Büttner
 layout: profile
 role: Team Member
 photo: assets/images/sylvia.jpg
 office:  Theodor-Kutzer-Ufer 1-3, D-68167 Mannheim (Building 3, Level 4) 
-phone:   +49 621 383 9904
+phone:   +49 621 383 9901
 email:   sylvia.buettner@medma.uni-heidelberg.de
 bibtex: publications.bib
 ---
