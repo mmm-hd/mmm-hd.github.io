@@ -36,7 +36,7 @@ Selected publications:
 
 [PUBL]
 
-<p>For a full list of my publications please see <a href="https://mmm-hd.github.io/assets/pdfs/PublikationsSvetlanaHetjensk.pdf" target="_blank" rel="noopener noreferrer">here</a>.</p>
+<p>For a full list of my publications please see <a href="https://mmm-hd.github.io/assets/pdfs/PublikationsSvetlanaHetjens.pdf" target="_blank" rel="noopener noreferrer">here</a>.</p>
 
 ## Contact
 [CONTACT]
