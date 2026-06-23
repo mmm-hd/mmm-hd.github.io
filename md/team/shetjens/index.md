@@ -60,7 +60,8 @@ Urine. Clin Appl Thromb Hemost. 2021 Jan-Dec;27:1076029621993550. doi:
 
 Fest J, Pfalzgraf D, Weiss C, Hetjens S. Evaluating the efficacy and tolerability of mirabegron, a β3-adrenoceptor agonist, for the treatment of overactive bladder: Systematic review and network meta-analysis. Journal of Clinical Urology. 2017;10(6):557-567. doi:10.1177/2051415817706045
 
-For a full list of my publications please see <a href="assets/pdfs/PublikationsSvetlanaHetjens.pdf" target="_blank" rel="noopener noreferrer">here</a>.
+For a full list of my publications please see <a href="https://mmm-hd.github.io/assets/pdfs/PublikationsRomanSchefzik.pdf" target="_blank" rel="noopener noreferrer">here</a>.
+
 
 ## Contact
 [CONTACT]
