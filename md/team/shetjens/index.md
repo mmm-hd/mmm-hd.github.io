@@ -25,7 +25,7 @@ My research interests include:
 
 * Metaanalyse of medical data,
 
-* Randomization of Clinical Trials,
+* Randomization of clinical Trials,
 
 * Agreement analysis (Kappa, ICC und Bland-Altman Analysis), and
 
