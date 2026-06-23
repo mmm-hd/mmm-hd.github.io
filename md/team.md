@@ -40,7 +40,7 @@ members:
 
   - name:   Dr. Svetlana Hetjens
     role:   Core Facility
-    image:  assets/images/svetlana.jpg
+    image:  assets/images/Svetlana_Bild2-thumb.webp
     url:    team/shetjens/index.html
 
   - name:   Sylvia Büttner
