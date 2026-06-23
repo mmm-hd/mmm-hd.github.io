@@ -10,7 +10,7 @@ bibtex: publications.bib
 ---
 ## Profile
 <p>I have been working at our Core Facility at the Mannheim Medical Faculty since 1985, where I am responsible for organizational tasks (office administration, organizing lectures and seminars, placing orders, etc.) and assist physicians and students with data analysis for studies and dissertations.</p>
-<p>This includes:<br>
+<p>This includes:</p>
 <ul><li>Creating Moodle courses for Excel, Word and our Statistical Software SAS</li>
 <li>Data management</li>
 <li>Conducting descriptive statistics</li>
