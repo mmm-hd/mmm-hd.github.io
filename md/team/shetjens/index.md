@@ -2,7 +2,7 @@
 name: Dr.sc.hum. Svetlana Hetjens
 layout: profile
 role: Statistical Consultant
-photo: assets/images/svetlana.jpg
+photo: assets/images/Svetlana_Bild2.jpg
 office:  Theodor-Kutzer-Ufer 1-3, D-68167 Mannheim (Building 3, Level 4) 
 phone:   +49 621 383 9902
 email:   svetlana.hetjens@medma.uni-heidelberg.de
