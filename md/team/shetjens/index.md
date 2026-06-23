@@ -27,6 +27,7 @@ My research interests include:
 
 ## Publications
 Selected publications:
+
 Kehrle K, Hetjens M, Hetjens S. Risk Factors and Preventive Measures for Lung
 Cancer in the European Union. Epidemiologia (Basel). 2024 Aug 27;5(3):539-546.
 doi: 10.3390/epidemiologia5030037. PMID: 39311354; PMCID: PMC11417776.
