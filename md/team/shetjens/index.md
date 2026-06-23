@@ -36,7 +36,7 @@ Selected publications:
 
 [PUBL]
 
-For a full list of my publications please see <a href="https://mmm-hd.github.io/assets/pdfs/PublikationsRomanSchefzik.pdf" target="_blank" rel="noopener noreferrer">here</a>.
+For a full list of my publications please see <a href="https://mmm-hd.github.io/assets/pdfs/PublikationsSvetlanaHetjens.pdf.pdf" target="_blank" rel="noopener noreferrer">here</a>.
 
 
 ## Contact
