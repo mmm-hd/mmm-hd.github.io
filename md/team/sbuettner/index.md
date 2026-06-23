@@ -10,13 +10,13 @@ bibtex: publications.bib
 ---
 ## Profile
 <p>I have been working at our Core Facility at the Mannheim Medical Faculty since 1985, where I am responsible for organizational tasks (office administration, organizing lectures and seminars, placing orders, etc.) and assist physicians and students with data analysis for studies and dissertations.</p>
-<p>This includes</p>
-<p>Creating Moodle courses for Excel, Word and our Statistical Software SAS
-<p>data management</p>
-<p>conducting descriptive statistics</p>
-<p>applying regression analyses and Kaplan-Meier and Cox models</p>
-<p>determining risks (e.g. odds ratios)</p>
-<p>using agreement analysis (e.g., Kappa and Bland-Altman analysis)</p>
+<p>This includes<br>
+Creating Moodle courses for Excel, Word and our Statistical Software SAS<br>
+Data management<br>
+Conducting descriptive statistics<br>
+Applying regression analyses and Kaplan-Meier and Cox models<br>
+Determining risks (e.g. odds ratios)<br>
+Using agreement analysis (e.g., Kappa and Bland-Altman analysis)</p>
 
 ## Publications
 [PUBL]
