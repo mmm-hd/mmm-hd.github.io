@@ -16,7 +16,7 @@ bibtex: publications.bib
 <li>Conducting descriptive statistics</li>
 <li>Applying regression analyses and Kaplan-Meier and Cox models</li>
 <li>Determining risks (e.g. odds ratios)</li>
-<li>Using agreement analysis (e.g., Kappa and Bland-Altman analysis)</li></ul>
+<li>Using agreement analysis (e.g. Kappa and Bland-Altman analysis)</li></ul>
 
 ## Publications
 <p>For a list of my publications please see <a href="https://mmm-hd.github.io/assets/pdfs/PublicationsSylviaBuettner.pdf" target="_blank" rel="noopener noreferrer">here</a>.</p>
