@@ -20,15 +20,15 @@ It is with great pleasure that I offer statistical support to researchers at the
 My research interests include:
 
 * Epidemiology (Risk Factors and Preventive Measures),
- 
+
 * Direct Oral Anticoagulants (Point-of-Care-Tests),
- 
+
 * Metaanalyse of medical data,
- 
+
 * Randomization of Clinical Trials,
- 
+
 * Agreement analysis (Kappa, ICC und Bland-Altman Analysis), and
- 
+
 * Sample size analysis and Power analysis in clinical trials.
 
 ## Publications
