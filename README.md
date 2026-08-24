@@ -3,47 +3,87 @@
 ### Inner workings
 The website has the following components:
 
-* Assets (images, javascript, stylesheets) -> `assets`
-* Templates in `Jinja2` (navlinks, footer, publications, ...) -> `template/`
-* Pages in YAML (frontmatter) and Markdown body -> `md/`
-  * `layout`: which template to choose
-  * `title`: title of the page
-  * template-specific fields such as `photo`
-* Static site generator -> `build.py`
-  * Assemble Markdown pages to corresponding template
-  * Convert BibTeX files (`bibtexparser`)
-  * `dodo.py` detects which `md` files need to be rebuilt
+* **Content pages**
+  * Markdown Files (`md/`): The primary source of content, formatted in Markdown.
+  * YAML Frontmatter: Embedded at the top of each Markdown file to store page metadata, 
+    including the title, the designated layout template, and specific variables like `photo` or `email`.
+  * Static Assets (`assets/`): The repository for raw design components, including images, 
+    stylesheets, and JavaScript files.
+
+* **Templates**
+  * Jinja2 Templates (`layout/`): The HTML scaffolding for the site. These templates handle 
+    recurring structural elements such as navigation bars, footers, and specific block layouts 
+    like the publication lists and contact metadata.
+  * Content parsing (`python-markdown`): Converts Markdown into HTML, utilizing extensions 
+    for tables, syntax highlighting, and custom keyword replacement (e.g., swapping [PUBL] and 
+    [CONTACT] with rendered HTML).
+  * Citation processing (`bibtexparser`): Parses source `BibTeX` files to generate formatted 
+    publication lists to be injected into the templates.
+
+* **Generator**
+  * Task management (`dodo.py`): Handles dependency tracking and incremental builds, 
+    ensuring only modified `.md` files and their dependencies are rebuilt.
+  * Generator (`build.py`): The central Python script responsible for assembling the static site.
+
 
 ### Employee pages
 
 Every employee has their own "webspace" as a subdirectory in `team/`.
 The base page should be edited in `index.md`. The header consists of a
-profile photo, team role, title and text (markdown) body.
+profile photo, team role, title and text (Markdown) body.
 
-To include publications, add a BibTeX file and write the name in
-`bib_file`. The publications can then be inserted with the `[PUBL]`
-keyword.
+**Page contents** are related to specific tasks in the group, including:
 
-> **Note**: Currently BibTeX is only implemented for the main publications
-> page (#3).
+* Focus and specializations
+* Completed and on-going projects
+* List of publications
+* Current and previous teaching
+* Supervision of student thesis
+* Organisation of current and previous events
 
-For example:
+**Contact information** includes the following:
+
+* Office room number
+* Office phone number
+* Email form
+* Publication overview, e.g. Orcid (if any)
+* Code sharing platform, e.g. Github (if any)
+
+To include publications, add a BibTeX file and write the name in `bibtex`.
+The name is relative to the directory containing the Markdown file. The publications 
+can then be inserted with the `[PUBL]` keyword.
+
+Contact data can also be included in the header (keys `phone`, `email`, 
+`office`, `phone`, `github`, `orcid`, `social`.) They are inserted with the `[CONTACT]`
+keyword. For example:
+
 ```md
 ---
 title: Jane Doe
 layout: profile
 role: Team Member
 photo: assets/images/jane.jpg
-bib_file: publications.bib
+bibtex: publications.bib
+office: Land of Oz
 ---
-
-## About
+Something about myself...
 
 ## Research
+Something about my research...
+
+Something about my [cats...](http.cat/300)
 
 ## Publications
 [PUBL]
+
+## Contact
+[CONTACT]
 ```
+The keywords `[PUBL]` or `[CONTACT]` can be used literally by setting `render_macros: false` in the header.
+A table of contents is generated pointing to defined sections; this can be disabled with `toc: false`.
+
+> *Note*:  The mail is split into user and domain, so that it cannot be retrieved directly
+from html.
 
 
 ### Making changes
@@ -63,6 +103,9 @@ Unfortunately there is no universal guide for `git`. Suggestions:
 For a basic guide to Markdown, see the following:
 * https://www.markdownguide.org/basic-syntax/
 * https://www.markdownguide.org/cheat-sheet/
+
+
+### Extensions
 
 Several extensions are supported (tables, code highlighting, MathML.)
 In particular you can write basic LaTeX formulas. For example:
@@ -86,10 +129,10 @@ x^n + y^n = z^n
 
 ### Building the site
 
-> **Note**: Eventually this repository will only contain the markdown files,
-> with HTML files automatically generated on each commit (#8). Until then,
-> you need to include the updated HTML files with your commit.
-
+> **Note**: The `main` branch of his repository only contains the markdown files.
+> On each commit, the corresponding `html` files are pushed to the `gh-pages` branch.
+> The below can be used if you want to preview larger changes to the website locally.
+ 
 Requirements: Python 3.9+
 
 First, retrieve or update the repository:
@@ -119,7 +162,7 @@ python -m http.server 8080
 Now you can push the changes to the repository:
 ```sh
 # Record the changes
-git commit md/ team/
+git commit md/
 
 # Push to the repository
 git push

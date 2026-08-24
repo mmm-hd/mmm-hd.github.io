@@ -1,0 +1,7 @@
+{% from 'macros.tmpl' import render_pub_item %}
+
+<ul class="publication-list">
+    {% for pub in publications %}
+        {{ render_pub_item(pub) }}
+    {% endfor %}
+</ul>

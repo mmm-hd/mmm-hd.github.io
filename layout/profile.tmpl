@@ -1,0 +1,24 @@
+{% extends "base.tmpl" %}
+
+{# 1. Clear the banner so it doesn't show on profile pages #}
+{% block page_banner %}{% endblock %}
+
+{# 1. Inject the profile CSS modifier into the parent's grid #}
+{% block layout_modifier %}is-profile{% endblock %}
+
+{# 2. Inject the profile photo and data into the parent's sidebar #}
+{% block sidebar_content %}
+    <img src="{{ PATH_PREFIX }}{{ photo | default('assets/images/placeholder.jpeg') }}"
+         alt="{{ title | default('placeholder') }}" class="page-photo">
+
+    <h1 class="sidebar-name">{{ name }}</h1>
+
+    {% if role %}
+    <p class="sidebar-role">{{ role }}</p>
+    {% endif %}
+{% endblock %}
+
+{# 3. Inject the standard text into the parent's main column #}
+{% block page_content %}
+    {{ content }}
+{% endblock %}

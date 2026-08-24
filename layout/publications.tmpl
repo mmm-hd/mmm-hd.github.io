@@ -1,0 +1,21 @@
+{% extends "base.tmpl" %}
+
+{% from 'macros.tmpl' import render_pub_item %}
+
+{% block page_content %}
+    
+    {# 1. Print the standard Markdown intro #}
+    {{ content }}
+
+    {# 2. Print the dynamic Python data #}
+    {% for year, year_pubs in publications|groupby('year')|reverse %}
+        <h2 class="year-heading" id="year-{{ year }}">{{ year }}</h2>
+
+        <ul class="publication-list">
+            {% for pub in year_pubs %}
+                {{ render_pub_item(pub) }}
+            {% endfor %}
+        </ul>
+    {% endfor %}
+
+{% endblock %}
