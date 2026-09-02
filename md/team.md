@@ -18,6 +18,11 @@ members:
     image:  assets/images/jonathan-thumb.webp
     url:    team/jschwarz/index.html
 
+  - name:   Stefanie Adamczyk
+    role:   Team Assistant
+    image:  assets/images/placeholder.jpeg
+    url:    team/sadamczyk/index.html
+
   - name:   Yara Elshiaty
     role:   PhD Student
     image:  assets/images/yara-thumb.webp
