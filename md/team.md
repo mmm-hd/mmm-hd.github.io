@@ -9,7 +9,7 @@ members:
     url:    team/stpetra/index.html
     
   - name:   Dr. Roman Schefzik
-    role:   Statistical Advisor, Senior Researcher
+    role:   Core Facility, Statistical Advisor, Senior Researcher
     image:  assets/images/roman-thumb.webp
     url:    team/rschefzik/index.html
 
