@@ -1,7 +1,7 @@
 ---
 name: Dr. Roman Schefzik
 layout: profile
-role: Statistical Consultant,<br>Senior Researcher
+role: Core Facility Medical Statistics,<br>Senior Researcher
 photo: assets/images/roman.webp
 office:  Theodor-Kutzer-Ufer 1-3, D-68167 Mannheim (Building 3, Level 4) 
 phone:   +49 621 383 8086
@@ -37,7 +37,7 @@ Selected publications:
 For a full list of my publications, working papers and software packages, please see <a href="https://mmm-hd.github.io/assets/pdfs/PublicationsRomanSchefzik.pdf" target="_blank" rel="noopener noreferrer">here</a>.
 
 ## Teaching
-In the summer semester of 2026, I am teaching seminars and exercises in biomathematics for medical students at the Medical Faculty Mannheim of Heidelberg University.
+In the winter semester of 2026/2027, I am teaching seminars and exercises in biomathematics for medical students at the Medical Faculty Mannheim of Heidelberg University.
 
 ## Contact
 [CONTACT]
