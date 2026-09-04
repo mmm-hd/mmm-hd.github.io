@@ -1,7 +1,7 @@
 ---
 name: Dr. Roman Schefzik
 layout: profile
-role: Core Facility Medical Statistics,<br>Senior Researcher
+role: Core Facility,<br> Statistical Advisor,<br>Senior Researcher
 photo: assets/images/roman.webp
 office:  Theodor-Kutzer-Ufer 1-3, D-68167 Mannheim (Building 3, Level 4) 
 phone:   +49 621 383 8086
