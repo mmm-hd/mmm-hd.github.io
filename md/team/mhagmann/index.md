@@ -2,7 +2,7 @@
 name: Dr. phil. Michael Hagmann
 layout: profile
 role: Head of Core Facility for Medical Statistics and Data Science,<br> Researcher
-photo: assets/images/michael.jpg
+photo: assets/images/michael.webp
 office:  Theodor-Kutzer-Ufer 1-3, D-68167 Mannheim (Building 3, Level 4, Room 7) 
 phone:   +49 621 383 9904
 email:  michael.hagmann@medma.uni-heidelberg.de
