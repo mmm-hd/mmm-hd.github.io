@@ -40,7 +40,7 @@ members:
 
   - name:   Dr. Michael Hagmann
     role:   Core Facility
-    image:  assets/images/michael.jpg
+    image:  assets/images/michael-thumb.webp
     url:    team/mhagmann/index.html
 
   - name:   Dr. Svetlana Hetjens
