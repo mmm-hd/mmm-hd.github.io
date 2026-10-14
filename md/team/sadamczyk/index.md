@@ -2,7 +2,7 @@
 name:    Stefania Adamczyk
 layout:  profile
 role:    Team Assistent
-photo:   assets/images/placeholder.jpeg
+photo:   assets/images/steffi.webp
 office:  TBA
 email:   stefanie.adamczyk@medma.uni-heidelberg.de
 github:  SteffiA44
