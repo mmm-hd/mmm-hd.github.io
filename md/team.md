@@ -20,7 +20,7 @@ members:
 
   - name:   Stefanie Adamczyk
     role:   Team Assistant
-    image:  assets/images/placeholder.jpeg
+    image:  assets/images/steffi-thumb.webp
     url:    team/sadamczyk/index.html
 
   - name:   Yara Elshiaty
