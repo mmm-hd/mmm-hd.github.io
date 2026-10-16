@@ -40,6 +40,6 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: . # The root directory where your .html files are generated
+          folder: build # The root directory where your .html files are generated
           branch: gh-pages # The branch the site will be deployed to
           clean: true # Automatically remove old files from gh-pages not present in the current build

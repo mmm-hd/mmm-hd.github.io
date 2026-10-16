@@ -6,7 +6,7 @@ from zoneinfo import ZoneInfo
 
 # get_var(key, default_value)
 SOURCE_DIR = get_var('source', 'md')
-OUTPUT_DIR = get_var('output', '.')
+OUTPUT_DIR = get_var('output', 'build')
 LAYOUT_DIR = get_var('layout', 'layout')
 
 # Define canonical site timezone
