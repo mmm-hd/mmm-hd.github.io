@@ -43,13 +43,3 @@ jobs:
           folder: . # The root directory where your .html files are generated
           branch: gh-pages # The branch the site will be deployed to
           clean: true # Automatically remove old files from gh-pages not present in the current build
-          # Exclude source files from the deployed branch to keep it clean
-          clean-exclude: |
-            md/
-            layout/
-            requirements.txt
-            dodo.py
-            build.py
-            .doit.db
-            .gitignore
-            README.md
