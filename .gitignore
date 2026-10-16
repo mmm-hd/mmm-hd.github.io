@@ -3,5 +3,4 @@
 .vscode/
 .doit.db.db
 __pycache__
-*.html
 *~
