@@ -7,7 +7,12 @@ members:
     role:   Group Leader
     image:  assets/images/stefania-thumb.webp
     url:    team/stpetra/index.html
-    
+
+  - name:   Stefanie Adamczyk
+    role:   Team Assistant
+    image:  assets/images/steffi-thumb.webp
+    url:    team/sadamczyk/index.html
+
   - name:   Dr. Roman Schefzik
     role:   Core Facility, Statistical Advisor, Senior Researcher
     image:  assets/images/roman-thumb.webp
@@ -17,11 +22,6 @@ members:
     role:   Statistical Advisor, Researcher
     image:  assets/images/jonathan-thumb.webp
     url:    team/jschwarz/index.html
-
-  - name:   Stefanie Adamczyk
-    role:   Team Assistant
-    image:  assets/images/steffi-thumb.webp
-    url:    team/sadamczyk/index.html
 
   - name:   Yara Elshiaty
     role:   PhD Student
@@ -38,6 +38,11 @@ members:
     image:  assets/images/ferdinand-thumb.webp
     url:    team/fvanmaele/index.html
 
+  - name:   Łukasz Adamowicz
+    role:   PhD Student
+    image:  assets/images/lukas-thumb.webp
+    url:    team/ladamowicz/index.html
+
   - name:   Dr. Michael Hagmann
     role:   Core Facility
     image:  assets/images/michael-thumb.webp
@@ -53,8 +58,4 @@ members:
     image:  assets/images/sylvia.jpg
     url:    team/sbuettner/index.html
 
-  - name:   Łukasz Adamowicz
-    role:   Teaching Assistant
-    image:  assets/images/lukas-thumb.webp
-    url:    team/ladamowicz/index.html
----
+ 
