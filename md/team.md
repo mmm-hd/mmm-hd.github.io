@@ -57,5 +57,4 @@ members:
     role:   Core Facility
     image:  assets/images/sylvia.jpg
     url:    team/sbuettner/index.html
-
- 
+--- 
