@@ -36,6 +36,13 @@ jobs:
           # and then 'doit' to execute the specialized builds we configured.
           doit clean
           doit
+      
+      - name: Copy assets to Github Pages
+        uses: tuftsrt/copy-to-branch@v1
+        with:
+          destination-branch: gh-pages
+          copy: |
+            assets/
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
