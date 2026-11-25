@@ -4,6 +4,21 @@ layout: base
 toc: true
 ---
 
+# Winter semester 2026/27
+
+## Lecture: Mathematical Image Processing
+
+The focus of this lecture is on mathematical methods for solving fundamental problems in image processing, such as denoising, deblurring, and image reconstruction from incomplete measurements. Particular emphasis is placed on variational approaches and their mathematical foundations.
+
+The lecture covers four main topics: fundamentals of functional analysis, calculus of variations and convex analysis; continuous and discrete image models; numerical optimization algorithms, with an emphasis on proximal splitting methods; and variational models for image reconstruction. We also introduce modern plug-and-play approaches, which integrate advanced image denoisers into optimization algorithms, and discuss their mathematical foundations in the theory of maximally monotone operators.
+
+The accompanying exercises deepen the understanding of the theoretical concepts, with particular emphasis on their numerical implementation.
+
+The main reference textbook is Mathematical Image Processing by Kristian Bredies and Dirk A. Lorenz.
+
+* [heiCO](https://heico.uni-heidelberg.de/heiCO/ee/ui/ca2/app/desktop/#/slc.tm.cp/student/courses/436051?$scrollTo=toc_overview)
+
+
 # Summer semester 2026
 
 ## Lecture: Mathematical Modelling in Medicine
